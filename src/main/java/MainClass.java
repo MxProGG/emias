@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,12 +21,12 @@ public class MainClass {
         //driver.manage().window().setSize(new Dimension(1600,1000));
 
         driver.get("http://192.168.7.54/mis/test2/");
-        LoginPage entry = new LoginPage(driver);
-        entry.entrySystem("admin","11");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.entrySystem("admin","11");
 
-        MainPage clicklLink = new MainPage(driver);
-        clicklLink.linkPage("Расписание приёма");
+        MainPage mainPage = new MainPage(driver);
+        mainPage.linkPage("Журнал направлений на МСЭ");
 
-        //driver.quit();
+        driver.quit();
     }
 }

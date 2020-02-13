@@ -13,9 +13,12 @@ public class MainPage {
     private By linkMSE = By.xpath("//span[text()=\"Журнал направлений на МСЭ\"]");
 
     public void linkPage(String linktext){
-        String form ="//span[text()=" + "'" + linktext + "'" + "]";
-        By linkFormat = By.xpath(form);
+        /*
+        String linkXpath ="//span[text()=" + "'" + linktext + "'" + "]//";
+        By linkFormat = By.xpath(linkXpath);
         driver.findElement(linkFormat).click();
+        */
+        driver.findElement(By.xpath("//a[@href='#MseIndexNg']")).click();
         }
 
 
