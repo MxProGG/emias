@@ -30,11 +30,11 @@ public class LoginPageTest {
         //LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
     }
 
-//    @Test
-//    public  void helpClick (){
-//        loginPage.clickLinkHelp();
-//
-//    }
+    @Test
+    public  void helpClick (){
+        loginPage.clickLinkHelp();
+
+    }
 
     @Test
     public void loginErrorTest(){
@@ -43,9 +43,9 @@ public class LoginPageTest {
         Assert.assertEquals("Неверный пароль пользователя",error);
     }
 
-    /*@After
+    @After
     public void tearDown(){
         driver.quit();
-    }*/
+    }
 
 }

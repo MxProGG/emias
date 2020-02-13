@@ -26,14 +26,17 @@ public class LoginPage {
     private By buttonLogin = By.xpath("//input[@id='loginBtn']");
 
 
-    @FindBy (xpath = "//input[@id='Remember']")
-    private WebElement checkBoxRemember;
+    /*@FindBy (xpath = "//input[@id='Remember']")
+    private WebElement checkBoxRemember;*/
+    private By checkBoxRemember = By.xpath("//input[@id='Remember']");
 
-    @FindBy (xpath = "//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']")
-    private WebElement linkHelp;
+    /*@FindBy (xpath = "//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']")
+    private WebElement linkHelp;*/
+    private By linkHelp = By.xpath("//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']\"");
 
-    @FindBy (xpath = "//div[text()=\"TrustMed\"]")
-    private WebElement heading;
+    /*@FindBy (xpath = "//div[text()=\"TrustMed\"]")
+    private WebElement heading;*/
+    private By heading = By.xpath("//div[text()=\"TrustMed\"]");
 
     /*@FindBy (xpath = "//span[@class='error-login']")
     private WebElement errorLogin;*/
@@ -59,28 +62,25 @@ public class LoginPage {
     }
 
     public void clickRemember () {
-        if (!checkBoxRemember.isSelected()){
-        checkBoxRemember.click();}
+        if (!driver.findElement(checkBoxRemember).isSelected()){
+        driver.findElement(checkBoxRemember).click();}
     }
 
     public void clickLinkHelp () {
-        linkHelp.click();
-
+        driver.findElement(linkHelp).click();
     }
 
-    public String getHeadingText(){
-        return heading.getText();
-    }
+    public String getHeadingText() { return driver.findElement(heading).getText();   }
 
     public String getErorrText() { return driver.findElement(errorLogin).getText(); }
 
     public MainPage entrySystem (String username, String password ){
-        //String mainWindow = driver.getWindowHandle();
-        //this.clickLinkHelp();
-        //driver.switchTo().window(mainWindow);
+        String mainWindow = driver.getWindowHandle();
+        this.clickLinkHelp();
+        driver.switchTo().window(mainWindow);
         this.typeLogin(username);
         this.typePassword(password);
-        //this.clickRemember();
+        this.clickRemember();
         this.clickLogin();
         return new MainPage(driver);
     }
