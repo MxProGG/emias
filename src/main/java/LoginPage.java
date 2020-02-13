@@ -32,7 +32,7 @@ public class LoginPage {
 
     /*@FindBy (xpath = "//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']")
     private WebElement linkHelp;*/
-    private By linkHelp = By.xpath("//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']\"");
+    private By linkHelp = By.xpath("//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']");
 
     /*@FindBy (xpath = "//div[text()=\"TrustMed\"]")
     private WebElement heading;*/
@@ -75,9 +75,9 @@ public class LoginPage {
     public String getErorrText() { return driver.findElement(errorLogin).getText(); }
 
     public MainPage entrySystem (String username, String password ){
-        String mainWindow = driver.getWindowHandle();
-        this.clickLinkHelp();
-        driver.switchTo().window(mainWindow);
+        //String mainWindow = driver.getWindowHandle();
+        //this.clickLinkHelp();
+        //driver.switchTo().window(mainWindow);
         this.typeLogin(username);
         this.typePassword(password);
         this.clickRemember();

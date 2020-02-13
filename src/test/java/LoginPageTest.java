@@ -21,7 +21,7 @@ public class LoginPageTest {
         //Неявное ожидание для все элементов 10 сек
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Чтоб окно браузера запускалось на втором мониторе
-        driver.manage().window().setPosition(new Point(1930,60));
+        //driver.manage().window().setPosition(new Point(1930,60));
         //На весь экран
         driver.manage().window().maximize();
         //driver.manage().window().setSize(new Dimension(1600,1000));
