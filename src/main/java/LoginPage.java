@@ -35,8 +35,9 @@ public class LoginPage {
     @FindBy (xpath = "//div[text()=\"TrustMed\"]")
     private WebElement heading;
 
-    @FindBy (xpath = "//span[@class='error-login']")
-    private WebElement errorLogin;
+    /*@FindBy (xpath = "//span[@class='error-login']")
+    private WebElement errorLogin;*/
+    private By errorLogin = By.xpath("//span[@class='error-login']");
 
 
     public LoginPage typeLogin (String username) {
@@ -71,7 +72,7 @@ public class LoginPage {
         return heading.getText();
     }
 
-    public String getErorrText() { return errorLogin.getText(); }
+    public String getErorrText() { return driver.findElement(errorLogin).getText(); }
 
     public MainPage entrySystem (String username, String password ){
         //String mainWindow = driver.getWindowHandle();
@@ -79,7 +80,7 @@ public class LoginPage {
         //driver.switchTo().window(mainWindow);
         this.typeLogin(username);
         this.typePassword(password);
-        this.clickRemember();
+        //this.clickRemember();
         this.clickLogin();
         return new MainPage(driver);
     }
