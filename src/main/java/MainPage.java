@@ -21,7 +21,7 @@ public class MainPage {
         String linkXpath = "//a[@href='"+ linktext + "']";
         By linkFormat = By.xpath(linkXpath);
         driver.findElement(linkFormat).click();
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         //driver.findElement(By.xpath("//a[@href='#MseIndexNg']")).click();
         }

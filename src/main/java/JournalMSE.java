@@ -88,8 +88,12 @@ public class JournalMSE {
 
     public String clickMenuDelete(int indexRow){
         driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//i")).click();
+        if (driver.findElement(deleteAction).isEnabled()){
         driver.findElement(deleteAction).click();
         return driver.findElement(By.xpath("//span[text()='Направление на МСЭ удалено успешно.']")).getText();
+        }
+        return "Кнопка Удалить не активна!";
+
     }
 
 

@@ -32,6 +32,7 @@ public class LoginPageTest {
 
     @Test
     public  void helpClick (){
+        Assert.assertEquals("TrustMed",loginPage.getHeadingText());
         loginPage.clickLinkHelp();
 
     }
@@ -70,8 +71,8 @@ public class LoginPageTest {
         journalMSE.clickClear();
         journalMSE.clickSearch();
         Assert.assertEquals(10,journalMSE.countRowTable());
-        //Assert.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
     }
+
     @Test
     public void journalDeleteMSE(){
         linkMSE();
@@ -81,9 +82,9 @@ public class LoginPageTest {
         Assert.assertEquals("Направление на МСЭ удалено успешно.",message);
     }
 
-    /*@After
+    @After
     public void tearDown(){
         driver.quit();
-    }*/
+    }
 
 }
