@@ -3,6 +3,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LoginPage {
@@ -83,6 +85,7 @@ public class LoginPage {
         this.clickRemember();
         this.clickLogin();
         return new MainPage(driver);
+
     }
 
 }
