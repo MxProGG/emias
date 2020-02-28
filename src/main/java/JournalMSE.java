@@ -37,8 +37,8 @@ public class JournalMSE {
         return this;
     }
 
-    public JournalMSE typeDateBy (String dateBy){
-        driver.findElement(inputDateBy).sendKeys(dateBy);
+    public JournalMSE typeDateTo (String dateTo){
+        driver.findElement(inputDateBy).sendKeys(dateTo);
         return this;
     }
 
@@ -71,13 +71,11 @@ public class JournalMSE {
 
     public JournalMSE clickSaveExcel () {
         driver.findElement(buttonSaveExcel).click();
-        //buttonLogin.click();
         return new JournalMSE(driver);
     }
 
     public JournalMSE clickSearch () {
         driver.findElement(buttonSearch).click();
-        //buttonLogin.click();
         return new JournalMSE(driver);
     }
 
@@ -89,8 +87,8 @@ public class JournalMSE {
     public String clickMenuDelete(int indexRow){
         driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//i")).click();
         if (driver.findElement(deleteAction).isEnabled()){
-        driver.findElement(deleteAction).click();
-        return driver.findElement(By.xpath("//span[text()='Направление на МСЭ удалено успешно.']")).getText();
+            driver.findElement(deleteAction).click();
+            return driver.findElement(By.xpath("//span[text()='Направление на МСЭ удалено успешно.']")).getText();
         }
         return "Кнопка Удалить не активна!";
 

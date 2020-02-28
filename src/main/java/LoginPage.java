@@ -77,9 +77,6 @@ public class LoginPage {
     public String getErorrText() { return driver.findElement(errorLogin).getText(); }
 
     public MainPage entrySystem (String username, String password ){
-        //String mainWindow = driver.getWindowHandle();
-        //this.clickLinkHelp();
-        //driver.switchTo().window(mainWindow);
         this.typeLogin(username);
         this.typePassword(password);
         this.clickRemember();

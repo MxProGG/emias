@@ -1,9 +1,11 @@
 import org.junit.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -34,8 +36,11 @@ public class LoginPageTest {
     public  void helpClick (){
         Assert.assertEquals("TrustMed",loginPage.getHeadingText());
         loginPage.clickLinkHelp();
-
-    }
+        for (String handle : driver.getWindowHandles()) {
+            driver.switchTo().window(handle);
+        }
+        Assert.assertEquals("http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016",driver.getCurrentUrl());
+     }
 
     @Test
     public void loginErrorTest(){
@@ -48,7 +53,11 @@ public class LoginPageTest {
     @Test
     public void linkMSE(){
         MainPage mainPage = loginPage.entrySystem("admin","11");
-        mainPage.linkPage("#MseIndexNg");
+        try {
+            mainPage.linkPage("#MseIndexNg");
+        }  catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         JournalMSE journalMSE = new JournalMSE(driver);
         String journalTitle = journalMSE.journalTitle();
         Assert.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
@@ -61,7 +70,7 @@ public class LoginPageTest {
         Assert.assertEquals(10,journalMSE.countRowTable());
         journalMSE.typeFIO("Темников");
         journalMSE.typeDateFrom("14.02.2020");
-        journalMSE.typeDateBy("29.02.2020");
+        journalMSE.typeDateTo("29.02.2020");
         journalMSE.typeStatus("Зарегистрирован");
         journalMSE.typeConclusion("Установлена");
         journalMSE.typeDocCommission("Мастякова");
@@ -82,9 +91,20 @@ public class LoginPageTest {
         Assert.assertEquals("Направление на МСЭ удалено успешно.",message);
     }
 
-    @After
+    @Test
+    public void createMSE()  {
+        MainPage mainPage = loginPage.entrySystem("admin","11");
+        try {
+           mainPage.linkPage("/mis/test2/Tap");
+       }  catch (InterruptedException e) {
+           e.printStackTrace();
+       }
+        mainPage.newMSE();
+    }
+
+/*    @After
     public void tearDown(){
         driver.quit();
-    }
+    }*/
 
 }
