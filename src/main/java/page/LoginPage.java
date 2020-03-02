@@ -41,22 +41,22 @@ public class LoginPage {
     private By errorLogin = By.xpath("//span[@class='error-login']");
 
 
-    public LoginPage typeLogin (String username) {
+    public void typeLogin (String username) {
         driver.findElement(loginInput).sendKeys(username);
         //loginInput.sendKeys(username);
-        return this;
+        //return this;
     }
 
-    public LoginPage typePassword (String password) {
+    public void typePassword (String password) {
         driver.findElement(passwordInput).sendKeys(password);
         //passwordInput.sendKeys(password);
-        return this;
+        //return this;
     }
 
-    public MainPage clickLogin () {
+    public void clickLogin () {
         driver.findElement(buttonLogin).click();
         //buttonLogin.click();
-        return new MainPage(driver);
+        //return new MainPage(driver);
     }
 
     public void clickRemember () {

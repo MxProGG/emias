@@ -44,7 +44,7 @@ public class MisPageTest {
 
     @Test
     public void loginErrorTest(){
-        MainPage mainPage = loginPage.entrySystem("admin","22");
+        loginPage.entrySystem("admin","22");
         String error = loginPage.getErorrText();
         Assert.assertEquals("Неверный пароль пользователя",error);
 

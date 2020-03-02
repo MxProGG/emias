@@ -17,7 +17,7 @@ public class MainPage {
 
     }
 
-    private By linkMSE = By.xpath("//span[text()=\"Журнал направлений на МСЭ\"]");
+    //private By linkMSE = By.xpath("//span[text()=\"Журнал направлений на МСЭ\"]");
     private By buttonResetFilter = By.xpath("//input[@id='reset_filter']");
     private By buttonSearch = By.xpath("//input[@id='btnfindtapgrid1']");
     private By inputRow = By.xpath("//input[@id='sinptapgrid1']");
@@ -27,7 +27,7 @@ public class MainPage {
 
 
 
-    public MainPage linkPage(String linktext) throws InterruptedException {
+    public void linkPage(String linktext) throws InterruptedException {
         String linkXpath = "//a[@href='"+ linktext + "']";
         By linkFormat = By.xpath(linkXpath);
         Thread.sleep(5000);
@@ -35,7 +35,7 @@ public class MainPage {
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
         }
-        return new MainPage(driver);
+        //return new MainPage(driver);
     }
 
 

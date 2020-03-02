@@ -28,44 +28,37 @@ public class JournalMSE {
 
     public String journalTitle(){ return driver.findElement(journalTitle).getText(); }
 
-    public JournalMSE typeFIO (String fio){
+    public void typeFIO (String fio){
         driver.findElement(inputFIO).sendKeys(fio);
-        return this;
+        //return this;
     }
 
-    public JournalMSE typeDateFrom (String dateFrom){
+    public void typeDateFrom (String dateFrom){
         driver.findElement(inputDateFrom).sendKeys(dateFrom);
-        return this;
     }
 
-    public JournalMSE typeDateTo (String dateTo){
+    public void typeDateTo (String dateTo){
         driver.findElement(inputDateBy).sendKeys(dateTo);
-        return this;
     }
 
-    public JournalMSE typeStatus (String status){
+    public void typeStatus (String status){
         driver.findElement(inputStatus).click();
         driver.findElement(By.xpath("//mat-option[@title='" + status + "']")).click();
-        return this;
     }
 
-    public JournalMSE typeConclusion (String conclusion){
+    public void typeConclusion (String conclusion){
         driver.findElement(inputConclusion).click();
         driver.findElement(By.xpath("//mat-option[@title='" + conclusion + "']")).click();
-        return this;
     }
 
-    public JournalMSE typeDocCommission (String docCommission){
+    public void typeDocCommission (String docCommission){
         driver.findElement(inputDocCommission).click();
         driver.findElement(By.xpath("//mat-option[contains(@title,'" + docCommission + "')]")).click();
-
-        return this;
     }
 
-    public JournalMSE typeAuthor (String author){
+    public void typeAuthor (String author){
         driver.findElement(inputAuthor).click();
         driver.findElement(By.xpath("//mat-option[contains(@title,'" + author + "')]")).click();
-        return this;
     }
 
     public int countRowTable(){return driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index]")).size(); }
@@ -75,14 +68,14 @@ public class JournalMSE {
         return new JournalMSE(driver);
     }
 
-    public JournalMSE clickSearch () {
+    public void clickSearch () {
         driver.findElement(buttonSearch).click();
-        return new JournalMSE(driver);
+        new JournalMSE(driver);
     }
 
-    public JournalMSE clickClear(){
+    public void clickClear(){
         driver.findElement(buttonClear).click();
-        return new JournalMSE(driver);
+        new JournalMSE(driver);
     }
 
     public String clickMenuDelete(int indexRow){
