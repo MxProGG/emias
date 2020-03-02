@@ -22,11 +22,11 @@ public class MainClass {
         //driver.manage().window().setSize(new Dimension(1600,1000));
 
         driver.get("http://192.168.7.54/mis/test2/");
-        //LoginPage loginPage = new LoginPage(driver);
-        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+        //page.LoginPage loginPage = new page.LoginPage(driver);
+        page.LoginPage loginPage = PageFactory.initElements(driver, page.LoginPage.class);
         loginPage.entrySystem("admin","11");
 
-        MainPage mainPage = new MainPage(driver);
+        page.MainPage mainPage = new page.MainPage(driver);
         mainPage.linkPage("Журнал направлений на МСЭ");
 
         driver.quit();*/

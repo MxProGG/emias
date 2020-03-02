@@ -1,16 +1,16 @@
 import org.junit.*;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
-
-import java.util.Set;
+import page.DirectionPage;
+import page.JournalMSE;
+import page.LoginPage;
+import page.MainPage;
 import java.util.concurrent.TimeUnit;
 
 
 
-public class LoginPageTest {
+public class MisPageTest {
 
     private WebDriver driver;
     private LoginPage loginPage;
@@ -29,7 +29,7 @@ public class LoginPageTest {
         //driver.manage().window().setSize(new Dimension(1600,1000));
         driver.get("http://192.168.7.54/mis/test2/");
         loginPage = new LoginPage(driver);
-        //LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+        //page.LoginPage loginPage = PageFactory.initElements(driver, page.LoginPage.class);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class LoginPageTest {
 
     }
 
-    @Test
+    /*@Test
     public void linkMSE(){
         MainPage mainPage = loginPage.entrySystem("admin","11");
         try {
@@ -87,8 +87,8 @@ public class LoginPageTest {
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());
-        String message = journalMSE.clickMenuDelete(9);
-        Assert.assertEquals("Направление на МСЭ удалено успешно.",message);
+        String messageDelete = journalMSE.clickMenuDelete(0);
+        Assert.assertEquals("Направление на МСЭ удалено успешно.",messageDelete);
     }
 
     @Test
@@ -99,12 +99,20 @@ public class LoginPageTest {
        }  catch (InterruptedException e) {
            e.printStackTrace();
        }
-        mainPage.newMSE();
-    }
+        DirectionPage directionPage = new DirectionPage(driver);
+        try {
+            mainPage.searchTap();
+            String messageSave = directionPage.newDirection();
+            Assert.assertEquals("Направление сохранено",messageSave);
+        }  catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-/*    @After
+    }*/
+
+    @After
     public void tearDown(){
         driver.quit();
-    }*/
+    }
 
 }

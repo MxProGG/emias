@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -20,7 +22,6 @@ public class JournalMSE {
     private By inputConclusion = By.xpath("//st-autocomplete[@formcontrolname='conclusion']");
     private By inputDocCommission = By.xpath("//st-autocomplete[@formcontrolname='docCommission']");
     private By inputAuthor = By.xpath("//st-autocomplete[@formcontrolname='author']");
-    //private By menuAction = By.xpath("//datatable-body-row[@ng-reflect-row-index=2]//div[@class='datatable-body-cell-label']//i");
     private By deleteAction = By.xpath("//button[text()=' Удалить ']");
     private By snackBarDelete = By.xpath("//span[text()='Направление на МСЭ удалено успешно.']");
 
@@ -88,7 +89,7 @@ public class JournalMSE {
         driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//i")).click();
         if (driver.findElement(deleteAction).isEnabled()){
             driver.findElement(deleteAction).click();
-            return driver.findElement(By.xpath("//span[text()='Направление на МСЭ удалено успешно.']")).getText();
+            return driver.findElement(snackBarDelete).getText();
         }
         return "Кнопка Удалить не активна!";
 
