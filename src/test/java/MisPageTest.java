@@ -14,6 +14,7 @@ public class MisPageTest {
 
     private WebDriver driver;
     private LoginPage loginPage;
+    private MainPage mainPage;
 
     @Before
     public void setUp(){
@@ -47,6 +48,20 @@ public class MisPageTest {
         loginPage.entrySystem("admin","22");
         String error = loginPage.getErorrText();
         Assert.assertEquals("Неверный пароль пользователя",error);
+    }
+
+    @Test
+    public void loginSuccesful(){
+        loginPage.entrySystem("admin","11");
+        Assert.assertEquals("Центр управления", driver.getTitle());
+    }
+
+    @Test
+    public void logOut (){
+        loginPage.entrySystem("admin","11");
+        mainPage = new MainPage(driver);
+        mainPage.logOut();
+        Assert.assertEquals("TrustMed", loginPage.getHeadingText());
 
     }
 

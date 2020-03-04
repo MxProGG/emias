@@ -24,8 +24,11 @@ public class MainPage {
     private By menuEditTAP = By.xpath("//a[@role='menuitem' and contains(text(),'Редактировать')]");
     private By tabAction = By.xpath("//a[text()='Действия']");
     private By redirectMSE = By.xpath("//span[text()='Направление на МСЭ']");
+    private By logOut = By.xpath("//span[text()='Выход']");
 
-
+    public void logOut (){
+        driver.findElement(logOut).click();
+    }
 
     public void linkPage(String linktext) throws InterruptedException {
         String linkXpath = "//a[@href='"+ linktext + "']";

@@ -2,6 +2,9 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public class JournalMSE {
 
@@ -82,7 +85,9 @@ public class JournalMSE {
         driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//i")).click();
         if (driver.findElement(deleteAction).isEnabled()){
             driver.findElement(deleteAction).click();
+            (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarDelete));
             return driver.findElement(snackBarDelete).getText();
+
         }
         return "Кнопка Удалить не активна!";
 
