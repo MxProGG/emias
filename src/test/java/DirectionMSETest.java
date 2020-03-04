@@ -26,11 +26,11 @@ public class DirectionMSETest {
     @Before
     public void setUp(){
         //Путь к веб драйверу
-        System.setProperty("webdriver.chrome.driver", "D:\\java_project\\java_lesson_selenium\\drives\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("window-size=1650x1050");
-        driver = new ChromeDriver(); // для запуска без окна браузера передать options
+        driver = new ChromeDriver(options); // для запуска без окна браузера передать options
         //Неявное ожидание для все элементов 10 сек
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Чтоб окно браузера запускалось на втором мониторе
