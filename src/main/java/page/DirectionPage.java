@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static java.lang.Thread.sleep;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public class DirectionPage {
@@ -25,7 +26,7 @@ public class DirectionPage {
     private By inputTargetMSE = By.xpath("//span[contains(.,' 5.1 установление группы инвалидности')]//..");
     private By inputWhere13 = By.xpath("//st-autocomplete[@formcontrolname='medicalPlace']");
     private By inputWhere13Select = By.xpath("//span[contains(.,' 1 - Амбулаторно-поликлиническое учреждение ')]");
-    private By checkFirst18 = By.xpath("//mat-radio-button[@id='mat-radio-11']");
+    private By checkFirst18 = By.xpath("//mat-radio-group[@formcontrolname='isFirstExamination']//mat-radio-button[1]");
     private By checkSecond18 = By.xpath("//mat-radio-group[@formcontrolname='isFirstExamination']//mat-radio-button[2]");
     private By input19_3 = By.xpath("//st-autocomplete[@formcontrolname='invPeriod']");
     private By input19_3Select = By.xpath("//span[contains(.,' 1 - Один год ')]");
@@ -44,7 +45,7 @@ public class DirectionPage {
 
     public String newDirection() throws InterruptedException {
 
-        Thread.sleep(5000);
+        sleep(5000);
         for (String handle1 : driver.getWindowHandles()) {
             driver.switchTo().window(handle1);
         }
@@ -63,7 +64,7 @@ public class DirectionPage {
         Integer countRowTable = driver.findElements(By.xpath("//tr[@id=*]")).size();*/
     }
 
-    public void editDirection(){
+    public void editDirection() {
         driver.findElement(buttonClearVK).click();
         driver.findElement(inputProtokolVK).click();
         driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();

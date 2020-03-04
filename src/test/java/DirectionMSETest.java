@@ -1,15 +1,21 @@
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import page.DirectionPage;
 import page.JournalMSE;
 import page.LoginPage;
 import page.MainPage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class DirectionMSETest {
@@ -21,7 +27,10 @@ public class DirectionMSETest {
     public void setUp(){
         //Путь к веб драйверу
         System.setProperty("webdriver.chrome.driver", "D:\\java_project\\java_lesson_selenium\\drives\\chromedriver.exe");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("window-size=1650x1050");
+        driver = new ChromeDriver(); // для запуска без окна браузера передать options
         //Неявное ожидание для все элементов 10 сек
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Чтоб окно браузера запускалось на втором мониторе
@@ -97,6 +106,11 @@ public class DirectionMSETest {
 
     @After
     public void tearDown(){
+        /*File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String path = "./target/screenshots/" + screenshot.getName();
+        try {
+            FileUtils.copyFile(screenshot, new File(path));
+        } catch (IOException e){e.printStackTrace();}*/
         driver.quit();
     }
 
