@@ -27,6 +27,7 @@ public class JournalMSE {
     private By inputAuthor = By.xpath("//st-autocomplete[@formcontrolname='author']");
     private By deleteAction = By.xpath("//button[text()=' Удалить ']");
     private By snackBarDelete = By.xpath("//span[text()='Направление на МСЭ удалено успешно.']");
+    private By viewResultDirection = By.xpath("//button[text()=' Просмотр сведений о результатах проведенной МСЭ ']");
 
 
     public String journalTitle(){ return driver.findElement(journalTitle).getText(); }
@@ -93,5 +94,9 @@ public class JournalMSE {
 
     }
 
+    public void clickMenuResultDirection(int indexRow){
+        driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//i[3]")).click();
+        driver.findElement(viewResultDirection).click();
+    }
 
 }
