@@ -23,7 +23,7 @@ public class WebDriverInstall {
            options.addArguments("--headless");
            options.addArguments("window-size=1650x1050");
            int mode = 0; // для запуска без окна браузера передать >0
-           if (mode == 0){
+           if (mode == 1){
            driver = new ChromeDriver();}
                 else{driver = new ChromeDriver(options);}
            //Неявное ожидание для все элементов 10 сек

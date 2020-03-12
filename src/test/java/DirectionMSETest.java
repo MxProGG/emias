@@ -9,12 +9,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import page.DirectionPage;
-import page.JournalMSE;
-import page.LoginPage;
-import page.MainPage;
+import page.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,6 +92,29 @@ public class DirectionMSETest {
 
     }
 
+    @Test
+    public void createResultDirection()  {
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        journalMSE.clickMenuResultDirection(0);
+        ResultDirectionPage resultDirectionPage = new ResultDirectionPage(driver);
+        String messageSave = resultDirectionPage.newResult();
+        Assert.assertEquals("Сведения о результатах проведённой МСЭ сохранены",messageSave);
+    }
+
+    @Test
+    public void clearResultDirection() {
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        journalMSE.clickMenuResultDirection(0);
+        ResultDirectionPage resultDirectionPage = new ResultDirectionPage(driver);
+        try {
+            String messageSave = resultDirectionPage.clearResult();
+            Assert.assertEquals("Сведения о результатах проведённой МСЭ сохранены", messageSave);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     @After
     public void tearDown(){
