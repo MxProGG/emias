@@ -1,4 +1,6 @@
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,28 +19,19 @@ import page.MainPage;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class DirectionMSETest {
-
+    //Logger logger;
     private WebDriver driver;
     private LoginPage loginPage;
 
     @Before
     public void setUp(){
-        //Путь к веб драйверу
-        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("window-size=1650x1050");
-        driver = new ChromeDriver(options); // для запуска без окна браузера передать options
-        //Неявное ожидание для все элементов 10 сек
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //Чтоб окно браузера запускалось на втором мониторе
-        driver.manage().window().setPosition(new Point(1930,60));
-        //На весь экран
-        driver.manage().window().maximize();
-        //driver.manage().window().setSize(new Dimension(1600,1000));
-        driver.get("http://192.168.7.54/mis/test2/");
+//      logger = logger.getLogger("emias_2_3");
+//      PropertyConfigurator.configure("src/main/resources/log4j.properties");
+        WebDriverInstall driverInstall = new WebDriverInstall();
+        driver = driverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
         //page.LoginPage loginPage = PageFactory.initElements(driver, page.LoginPage.class);
     }
@@ -58,6 +51,7 @@ public class DirectionMSETest {
 
     @Test
     public void journalSearch(){
+        //logger.info("11ffff");
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());

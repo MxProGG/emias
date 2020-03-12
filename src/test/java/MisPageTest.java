@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
 
 
 public class MisPageTest {
@@ -25,22 +26,11 @@ public class MisPageTest {
     private MainPage mainPage;
 
 
+
     @Before
     public void setUp() {
-        //Путь к веб драйверу
-        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("window-size=1650x1050");
-        driver = new ChromeDriver(options); // для запуска без окна браузера передать options
-        //Неявное ожидание для все элементов 10 сек
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //Чтоб окно браузера запускалось на втором мониторе
-        driver.manage().window().setPosition(new Point(1930,60));
-        //На весь экран
-        driver.manage().window().maximize();
-        //driver.manage().window().setSize(new Dimension(1600,1000));
-        driver.get("http://192.168.7.54/mis/test2/");
+        WebDriverInstall driverInstall = new WebDriverInstall();
+        driver = driverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
         //page.LoginPage loginPage = PageFactory.initElements(driver, page.LoginPage.class);
     }
@@ -69,9 +59,10 @@ public class MisPageTest {
     }
 
     @Test
-    public void loginOut (){
+    public void loginOut () throws InterruptedException {
         loginPage.entrySystem("admin","11");
         mainPage = new MainPage(driver);
+        sleep(2000);
         mainPage.logOut();
         Assert.assertEquals("TrustMed", loginPage.getHeadingText());
 

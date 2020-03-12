@@ -11,11 +11,7 @@ public class MainPage {
 
     private WebDriver driver;
 
-
-    public MainPage(WebDriver driver){
-        this.driver = driver;
-
-    }
+    public MainPage(WebDriver driver){this.driver = driver;}
 
     //private By linkMSE = By.xpath("//span[text()=\"Журнал направлений на МСЭ\"]");
     private By buttonResetFilter = By.xpath("//input[@id='reset_filter']");
@@ -26,9 +22,7 @@ public class MainPage {
     private By redirectMSE = By.xpath("//span[text()='Направление на МСЭ']");
     private By logOut = By.xpath("//span[text()='Выход']");
 
-    public void logOut (){
-        driver.findElement(logOut).click();
-    }
+    public void logOut (){driver.findElement(logOut).click();}
 
     public void linkPage(String linktext) throws InterruptedException {
         String linkXpath = "//a[@href='"+ linktext + "']";
@@ -44,9 +38,9 @@ public class MainPage {
 
     public void searchTap() {
         driver.findElement(buttonResetFilter).click();
-        driver.findElement(inputRow).sendKeys("Темников");
+        driver.findElement(inputRow).sendKeys("д г а");
         driver.findElement(buttonSearch).click();
-        driver.findElement(By.xpath("//td[@title=" + 3 + "]")).click();
+        driver.findElement(By.xpath("//td[@title=" + 2 + "]")).click();
         driver.findElement(menuEditTAP).click();
         WebElement elementAction = driver.findElement(tabAction);
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOf(elementAction));
