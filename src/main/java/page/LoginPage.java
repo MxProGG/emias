@@ -30,7 +30,7 @@ public class LoginPage {
 
     /*@FindBy (xpath = "//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']")
     private WebElement linkHelp;*/
-    private By linkHelp = By.xpath("//a [@href ='http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016']");
+    private By linkHelp = By.xpath("//a [@href ='https://confluence.softrust.ru/pages/viewpage.action?pageId=7405997']");
 
     /*@FindBy (xpath = "//div[text()=\"TrustMed\"]")
     private WebElement heading;*/

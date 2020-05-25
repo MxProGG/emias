@@ -28,7 +28,7 @@ public class MisPageTest {
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
         }
-        Assert.assertEquals("http://confluence.softrust.ru/pages/viewpage.action?pageId=7406016",driver.getCurrentUrl());
+        Assert.assertEquals("https://confluence.softrust.ru/pages/viewpage.action?pageId=7405997",driver.getCurrentUrl());
      }
 
     @Test
@@ -41,7 +41,7 @@ public class MisPageTest {
     @Test
     public void loginSuccesful(){
         loginPage.entrySystem("admin","11");
-        Assert.assertEquals("Центр управления", driver.getTitle());
+        Assert.assertEquals("Центр управления", driver.getTitle()) ;
     }
 
     @Test
