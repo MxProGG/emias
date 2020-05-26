@@ -12,9 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class WebDriverInstall {
     public WebDriver driver;
 
-
-
-
     public WebDriver setUpDriver() {
 
            //Путь к веб драйверу

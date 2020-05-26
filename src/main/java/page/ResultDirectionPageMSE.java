@@ -10,13 +10,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static java.lang.Thread.sleep;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
-public class ResultDirectionPage {
+public class ResultDirectionPageMSE {
 
 
     private WebDriver driver;
 
 
-    public ResultDirectionPage(WebDriver driver){
+    public ResultDirectionPageMSE(WebDriver driver){
         this.driver = driver;
     }
 

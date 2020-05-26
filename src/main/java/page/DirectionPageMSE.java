@@ -8,11 +8,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static java.lang.Thread.sleep;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
-public class DirectionPage {
+public class DirectionPageMSE {
 
     private WebDriver driver;
 
-    public DirectionPage(WebDriver driver){
+    public DirectionPageMSE(WebDriver driver){
         this.driver = driver;
     }
 

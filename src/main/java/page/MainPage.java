@@ -40,7 +40,7 @@ public class MainPage {
         driver.findElement(buttonResetFilter).click();
         driver.findElement(inputRow).sendKeys("д г а");
         driver.findElement(buttonSearch).click();
-        driver.findElement(By.xpath("//td[@title=" + 2 + "]")).click();
+        driver.findElement(By.xpath("//td[@title=" + 1 + "]")).click();
         driver.findElement(menuEditTAP).click();
         WebElement elementAction = driver.findElement(tabAction);
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOf(elementAction));

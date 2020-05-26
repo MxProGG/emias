@@ -1,20 +1,9 @@
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.PropertyConfigurator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import page.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class DirectionMSETest {
     //Logger logger;
@@ -82,9 +71,9 @@ public class DirectionMSETest {
             e.printStackTrace();
         }
         mainPage.searchTap();
-        DirectionPage directionPage = new DirectionPage(driver);
+        DirectionPageMSE directionPageMSE = new DirectionPageMSE(driver);
         try {
-            String messageSave = directionPage.newDirection();
+            String messageSave = directionPageMSE.newDirection();
             Assert.assertEquals("Направление сохранено",messageSave);
         }  catch (InterruptedException e) {
             e.printStackTrace();
@@ -97,8 +86,8 @@ public class DirectionMSETest {
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         journalMSE.clickMenuResultDirection(0);
-        ResultDirectionPage resultDirectionPage = new ResultDirectionPage(driver);
-        String messageSave = resultDirectionPage.newResult();
+        ResultDirectionPageMSE resultDirectionPageMSE = new ResultDirectionPageMSE(driver);
+        String messageSave = resultDirectionPageMSE.newResult();
         Assert.assertEquals("Сведения о результатах проведённой МСЭ сохранены",messageSave);
     }
 
@@ -107,9 +96,9 @@ public class DirectionMSETest {
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         journalMSE.clickMenuResultDirection(0);
-        ResultDirectionPage resultDirectionPage = new ResultDirectionPage(driver);
+        ResultDirectionPageMSE resultDirectionPageMSE = new ResultDirectionPageMSE(driver);
         try {
-            String messageSave = resultDirectionPage.clearResult();
+            String messageSave = resultDirectionPageMSE.clearResult();
             Assert.assertEquals("Сведения о результатах проведённой МСЭ сохранены", messageSave);
         } catch (InterruptedException e) {
             e.printStackTrace();
