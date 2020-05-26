@@ -10,7 +10,7 @@ public class DataSQL {
     private static String password = "HkyeZfiCkO8";
 
 
-    public  static void updateResultMSE(String idExam) throws ClassNotFoundException {
+    public  static void updateResultMSE(int idExam) throws ClassNotFoundException {
         String url = connectionUrl +
                 ";databaseName=" + databaseName +
                 ";user=" + userName +
@@ -19,7 +19,7 @@ public class DataSQL {
         try {
 
             try (Connection connection = DriverManager.getConnection(url)) {
-                String sql = "update dmg_mse_Examination set rf_mse_statusmseid='5' where mse_examinationid='" + idExam + "'";
+                String sql = "update dmg_mse_Examination set rf_mse_statusmseid='6' where mse_examinationid='" + idExam + "'";
                 try (Statement statement = connection.createStatement()) {
                     statement.executeUpdate(sql);
                 }

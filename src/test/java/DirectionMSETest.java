@@ -2,8 +2,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import page.*;
+import sql.DataSQL;
+
+import java.util.List;
 
 public class DirectionMSETest {
     //Logger logger;
@@ -33,7 +38,7 @@ public class DirectionMSETest {
         Assert.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
     }
 
-    @Test
+    @Test //Поиск направления по всем полям
     public void journalSearch(){
         //logger.info("11ffff");
         linkMSE();
@@ -53,13 +58,44 @@ public class DirectionMSETest {
         Assert.assertEquals(10,journalMSE.countRowTable());
     }
 
-    @Test
-    public void journalDeleteMSE(){
+    @Test //Кейс 4.1 Поиск направления по ФИО и периодам выдачи
+    public void journalSearch_4_1(){
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());
-        String messageDelete = journalMSE.clickMenuDelete(0);
-        Assert.assertEquals("Направление на МСЭ удалено успешно.",messageDelete);
+        journalMSE.typeFIO("Темников");
+        journalMSE.typeDateFrom("14.02.2020");
+        journalMSE.typeDateTo("29.02.2020");
+        journalMSE.clickSearch();
+        List<WebElement> rows = driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index]"));
+        for (int i=0; i < rows.size(); i++) {
+            String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
+            Assert.assertEquals("Темников Дмитрий Олегович", FIOLabel);
+        }
+        journalMSE.clickClear();
+    }
+
+    @Test //Кейс 4.2 Поиск направления по Статусу и Членам комиссии
+    public void journalSearch_4_2(){
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10,journalMSE.countRowTable());
+        journalMSE.typeStatus("Зарегистрирован");
+        journalMSE.typeDocCommission("Мастякова");
+        journalMSE.clickSearch();
+        String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='0']//span[text()=' Зарегистрирован ']")).getText();
+        Assert.assertEquals("Зарегистрирован", statusLabel);
+        journalMSE.clickClear();
+    }
+
+    @Test
+    public void journalDeleteMSE(){
+
+        //linkMSE();
+        //JournalMSE journalMSE = new JournalMSE(driver);
+        //Assert.assertEquals(10,journalMSE.countRowTable());
+       // String messageDelete = journalMSE.clickMenuDelete(0);
+        //Assert.assertEquals("Направление на МСЭ удалено успешно.",messageDelete);
     }
 
     @Test
