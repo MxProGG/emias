@@ -6,6 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import page.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import sql.DataSQL;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class DirectionMSETest {
         //page.LoginPage loginPage = PageFactory.initElements(driver, page.LoginPage.class);
     }
 
-    @Test
+    @Test //Переход из Веб Мис в Журнал направлений на МСЭ
     public void linkMSE(){
         MainPage mainPage = loginPage.entrySystem("admin","11");
         try {
@@ -59,18 +62,25 @@ public class DirectionMSETest {
     }
 
     @Test //Кейс 4.1 Поиск направления по ФИО и периодам выдачи
-    public void journalSearch_4_1(){
+    public void journalSearch_4_1() throws ParseException {
         linkMSE();
+        String DateFrom="14.02.2020";
+        String DateTo="29.02.2020";
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date dateFrom=format.parse(DateFrom);
+        Date dateTo=format.parse(DateTo);
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());
         journalMSE.typeFIO("Темников");
-        journalMSE.typeDateFrom("14.02.2020");
-        journalMSE.typeDateTo("29.02.2020");
+        journalMSE.typeDateFrom(DateFrom);
+        journalMSE.typeDateTo(DateTo);
         journalMSE.clickSearch();
-        List<WebElement> rows = driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index]"));
-        for (int i=0; i < rows.size(); i++) {
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
             String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
             Assert.assertEquals("Темников Дмитрий Олегович", FIOLabel);
+            String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();
+            Date dateY=format.parse(DateLabel);
+            Assert.assertTrue("Дата в результате не входит в диапазон поиска!!",(dateY.after(dateFrom) && dateY.before(dateTo)) || dateY.equals(dateFrom) || dateY.equals(dateTo));
         }
         journalMSE.clickClear();
     }
