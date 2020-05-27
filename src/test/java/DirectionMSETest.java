@@ -79,6 +79,7 @@ public class DirectionMSETest {
         journalMSE.typeDateFrom(DateFrom);
         journalMSE.typeDateTo(DateTo);
         journalMSE.clickSearch();
+        Assert.assertNotEquals("грида пустая!",0,journalMSE.countRowTable());
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
             Assert.assertEquals("Темников Дмитрий Олегович", FIOLabel);
@@ -97,6 +98,7 @@ public class DirectionMSETest {
         journalMSE.typeStatus("Зарегистрирован");
         journalMSE.typeDocCommission("Иванов");
         journalMSE.clickSearch();
+        Assert.assertNotEquals("грида пустая!",0,journalMSE.countRowTable());
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
             String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
