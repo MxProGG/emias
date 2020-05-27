@@ -10,8 +10,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import sql.DataSQL;
+import org.hamcrest.CoreMatchers.*;
 
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasItemInArray;
 
 public class DirectionMSETest {
     //Logger logger;
@@ -80,7 +84,7 @@ public class DirectionMSETest {
             Assert.assertEquals("Темников Дмитрий Олегович", FIOLabel);
             String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();
             Date dateY=format.parse(DateLabel);
-            Assert.assertTrue("Дата в результате не входит в диапазон поиска!!",(dateY.after(dateFrom) && dateY.before(dateTo)) || dateY.equals(dateFrom) || dateY.equals(dateTo));
+            Assert.assertTrue("Дата в гриде не входит в диапазон поиска!",(dateY.after(dateFrom) && dateY.before(dateTo)) || dateY.equals(dateFrom) || dateY.equals(dateTo));
         }
         journalMSE.clickClear();
     }
@@ -91,10 +95,18 @@ public class DirectionMSETest {
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());
         journalMSE.typeStatus("Зарегистрирован");
-        journalMSE.typeDocCommission("Мастякова");
+        journalMSE.typeDocCommission("Иванов");
         journalMSE.clickSearch();
-        String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='0']//span[text()=' Зарегистрирован ']")).getText();
-        Assert.assertEquals("Зарегистрирован", statusLabel);
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
+            String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
+            String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
+            Assert.assertEquals("Статус не совпадает!","Зарегистрирован", statusLabel);
+            for (int j=1;j <= driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size(); j++) {
+               String DocCommissionLabelT= driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li[" + j + "]")).getText();
+               mas[j-1] = DocCommissionLabelT;
+            }
+            Assert.assertThat(mas, hasItemInArray("Иванов П.С."));
+        }
         journalMSE.clickClear();
     }
 

@@ -67,6 +67,7 @@ public class JournalMSE {
 
     public int countRowTable(){return driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index]")).size(); }
 
+
     public JournalMSE clickSaveExcel () {
         driver.findElement(buttonSaveExcel).click();
         return new JournalMSE(driver);
