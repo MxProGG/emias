@@ -30,6 +30,7 @@ public class JournalMSE {
     private By viewResultDirection = By.xpath("//button[text()=' Просмотр сведений о результатах проведенной МСЭ ']");
 
 
+
     public String journalTitle(){ return driver.findElement(journalTitle).getText(); }
 
     public void typeFIO (String fio){
@@ -91,7 +92,6 @@ public class JournalMSE {
             return driver.findElement(snackBarDelete).getText();
         }
         return "Кнопка Удалить не активна!";
-
     }
 
     public void clickMenuResultDirection(int indexRow){

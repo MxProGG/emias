@@ -3,9 +3,12 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -13,15 +16,22 @@ public class WebDriverInstall {
     public WebDriver driver;
 
     public WebDriver setUpDriver() {
-
            //Путь к веб драйверу
            System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
+           //Прописыаем настройку куда скачивать файлы
+           ChromeOptions dir = new ChromeOptions();
+           Map<String, Object> dirDownload = new HashMap<String, Object>();
+           dirDownload.put("download.default_directory", "D:\\Work\\Download_selenium");
+           dir.setExperimentalOption("prefs",dirDownload);
+           //Прописываем настройки чтобы запускать браузер в режиме без окна.
            ChromeOptions options = new ChromeOptions();
            options.addArguments("--headless");
            options.addArguments("window-size=1650x1050");
+           options.setExperimentalOption("prefs",dirDownload);
+           //Определяем режимы запуска в заисимости от значения mode, КаСтЫлЬ!!!
            int mode = 1; // для запуска без окна браузера передать >0
            if (mode == 1){
-           driver = new ChromeDriver();}
+           driver = new ChromeDriver(dir);}
                 else{driver = new ChromeDriver(options);}
            //Неявное ожидание для все элементов 10 сек
            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

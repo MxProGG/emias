@@ -19,7 +19,7 @@ public class DirectionPageMSE {
     private By buttonSave = By.xpath("//button[contains(.,'Сохранить')]");
     private By snackBarSave = By.xpath("//span[text()='Направление сохранено']");
     private By inputProtokolVK = By.xpath("//st-autocomplete[@field='protocolVk']//input");
-    //private By inputProtokolVKSelect = By.xpath("//mat-option[contains(.,' 545 ')]");
+    private By inputProtokolVKSelect = By.xpath("//mat-option[contains(.,'545')]//span");
     private By buttonClearVK = By.xpath("//button[@id='4198BD84-7A21-4E38-B36B-3ECB2E956408']");
     private By buttonAddVK = By.xpath("//button[contains(.,'Добавить')]");
     private By buttonEditVK = By.xpath("//button[contains(.,'Редактировать')]");
@@ -65,7 +65,8 @@ public class DirectionPageMSE {
         driver.findElement(buttonClearVK).click();
         //driver.findElement(inputProtokolVK).clear();
         driver.findElement(inputProtokolVK).click();
-        driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
+        driver.findElement(inputProtokolVKSelect).click();
+        //driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
         driver.findElement(inputTargetMSE).click();
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//legend[text()='11. Адрес места жительства*']")));
         driver.findElement(inputWhere13).click();

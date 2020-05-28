@@ -5,14 +5,19 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import page.*;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.hasItemInArray;
+
+
 
 public class DirectionMSETest {
     private WebDriver driver;
     private LoginPage loginPage;
+    private SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
 
     @Before
     public void setUp(){
@@ -76,24 +81,22 @@ public class DirectionMSETest {
     @Test //Кейс 4.1 Поиск направления по ФИО и периодам выдачи
     public void journalSearch_4_1() throws ParseException {
         linkMSE();
-        String DateFrom="14.02.2020";
-        String DateTo="29.02.2020";
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dateFrom=format.parse(DateFrom);
-        Date dateTo=format.parse(DateTo);
+        String dateFrom="14.02.2020";
+        String dateTo="29.02.2020";
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());
         journalMSE.typeFIO("Темников");
-        journalMSE.typeDateFrom(DateFrom);
-        journalMSE.typeDateTo(DateTo);
+        journalMSE.typeDateFrom(dateFrom);
+        journalMSE.typeDateTo(dateTo);
         journalMSE.clickSearch();
         Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
             Assert.assertEquals("ФИО не совпадает!","Темников Дмитрий Олегович", FIOLabel);
             String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();
-            Date dateY=format.parse(DateLabel);
-            Assert.assertTrue("Дата в гриде не входит в диапазон поиска!",(dateY.after(dateFrom) && dateY.before(dateTo)) || dateY.equals(dateFrom) || dateY.equals(dateTo));
+            Date dateGrid=formatDate.parse(DateLabel);
+            Assert.assertTrue("Дата в гриде не входит в диапазон поиска!",
+                    (dateGrid.after(formatDate.parse(dateFrom)) && dateGrid.before(formatDate.parse(dateTo))) || dateGrid.equals(formatDate.parse(dateFrom)) || dateGrid.equals(formatDate.parse(dateTo)));
         }
         journalMSE.clickClear();
     }
@@ -137,14 +140,29 @@ public class DirectionMSETest {
         journalMSE.clickClear();
     }
 
+    @Test // Кейс 4.4 Сохранения в Ехcel
+    public void journalDownloadExcel_4_4() throws InterruptedException {
+        File dir = new File("D:\\Work\\Download_selenium");
+        for (File item : dir.listFiles()) {
+                    item.delete(); }
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10,journalMSE.countRowTable());
+        journalMSE.clickSaveExcel();
+        sleep(5000);
+        String[] listFile = dir.list();
+        Assert.assertNotNull("Файл не скачан, папка пуста!",listFile);
+    }
+
     @Test // Кейс 4.5 Удаление направления
     public void journalDeleteMSE_4_5(){
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assert.assertEquals(10,journalMSE.countRowTable());
         journalMSE.typeFIO("Авто Тест");
-        journalMSE.typeDateFrom("28.05.2020");
-        journalMSE.typeDateTo("28.05.2020");
+        Date dateNow = new Date();
+        journalMSE.typeDateFrom(formatDate.format(dateNow));
+        journalMSE.typeDateTo(formatDate.format(dateNow));
         journalMSE.clickSearch();
         Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
         String messageDelete = journalMSE.clickMenuDelete(0);

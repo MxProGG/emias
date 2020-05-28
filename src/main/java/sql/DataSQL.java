@@ -17,7 +17,6 @@ public class DataSQL {
                 ";password=" + password;
 
         try {
-
             try (Connection connection = DriverManager.getConnection(url)) {
                 String sql = "update dmg_mse_Examination set rf_mse_statusmseid='6' where mse_examinationid='" + idExam + "'";
                 try (Statement statement = connection.createStatement()) {
