@@ -4,35 +4,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import page.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import sql.DataSQL;
-import org.hamcrest.CoreMatchers.*;
-
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasItemInArray;
 
 public class DirectionMSETest {
-    //Logger logger;
     private WebDriver driver;
     private LoginPage loginPage;
 
     @Before
     public void setUp(){
-//      logger = logger.getLogger("emias_2_3");
-//      PropertyConfigurator.configure("src/main/resources/log4j.properties");
         WebDriverInstall driverInstall = new WebDriverInstall();
         driver = driverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
-        //page.LoginPage loginPage = PageFactory.initElements(driver, page.LoginPage.class);
     }
 
-    @Test //Переход из Веб Мис в Журнал направлений на МСЭ
+   //@Test //Переход из Веб Мис в Журнал направлений на МСЭ
     public void linkMSE(){
         MainPage mainPage = loginPage.entrySystem("admin","11");
         try {
@@ -45,7 +34,7 @@ public class DirectionMSETest {
         Assert.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
     }
 
-    @Test //Поиск направления по всем полям
+   /* @Test //Поиск направления по всем полям
     public void journalSearch(){
         //logger.info("11ffff");
         linkMSE();
@@ -63,67 +52,10 @@ public class DirectionMSETest {
         journalMSE.clickClear();
         journalMSE.clickSearch();
         Assert.assertEquals(10,journalMSE.countRowTable());
-    }
+    }*/
 
-    @Test //Кейс 4.1 Поиск направления по ФИО и периодам выдачи
-    public void journalSearch_4_1() throws ParseException {
-        linkMSE();
-        String DateFrom="14.02.2020";
-        String DateTo="29.02.2020";
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dateFrom=format.parse(DateFrom);
-        Date dateTo=format.parse(DateTo);
-        JournalMSE journalMSE = new JournalMSE(driver);
-        Assert.assertEquals(10,journalMSE.countRowTable());
-        journalMSE.typeFIO("Темников");
-        journalMSE.typeDateFrom(DateFrom);
-        journalMSE.typeDateTo(DateTo);
-        journalMSE.clickSearch();
-        Assert.assertNotEquals("грида пустая!",0,journalMSE.countRowTable());
-        for (int i=0; i < journalMSE.countRowTable(); i++) {
-            String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
-            Assert.assertEquals("Темников Дмитрий Олегович", FIOLabel);
-            String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();
-            Date dateY=format.parse(DateLabel);
-            Assert.assertTrue("Дата в гриде не входит в диапазон поиска!",(dateY.after(dateFrom) && dateY.before(dateTo)) || dateY.equals(dateFrom) || dateY.equals(dateTo));
-        }
-        journalMSE.clickClear();
-    }
-
-    @Test //Кейс 4.2 Поиск направления по Статусу и Членам комиссии
-    public void journalSearch_4_2(){
-        linkMSE();
-        JournalMSE journalMSE = new JournalMSE(driver);
-        Assert.assertEquals(10,journalMSE.countRowTable());
-        journalMSE.typeStatus("Зарегистрирован");
-        journalMSE.typeDocCommission("Иванов");
-        journalMSE.clickSearch();
-        Assert.assertNotEquals("грида пустая!",0,journalMSE.countRowTable());
-        for (int i=0; i < journalMSE.countRowTable(); i++) {
-            String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
-            String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
-            Assert.assertEquals("Статус не совпадает!","Зарегистрирован", statusLabel);
-            for (int j=1;j <= driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size(); j++) {
-               String DocCommissionLabelT= driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li[" + j + "]")).getText();
-               mas[j-1] = DocCommissionLabelT;
-            }
-            Assert.assertThat(mas, hasItemInArray("Иванов П.С."));
-        }
-        journalMSE.clickClear();
-    }
-
-    @Test
-    public void journalDeleteMSE(){
-
-        //linkMSE();
-        //JournalMSE journalMSE = new JournalMSE(driver);
-        //Assert.assertEquals(10,journalMSE.countRowTable());
-       // String messageDelete = journalMSE.clickMenuDelete(0);
-        //Assert.assertEquals("Направление на МСЭ удалено успешно.",messageDelete);
-    }
-
-    @Test
-    public void createMSE()  {
+    @Test // Кейс 1.1 Создание направления на МСЭ
+    public void createMSE_1_1()  {
         MainPage mainPage = loginPage.entrySystem("admin","11");
         try {
             mainPage.linkPage("/mis/test2/Tap");
@@ -140,6 +72,86 @@ public class DirectionMSETest {
         }
 
     }
+
+    @Test //Кейс 4.1 Поиск направления по ФИО и периодам выдачи
+    public void journalSearch_4_1() throws ParseException {
+        linkMSE();
+        String DateFrom="14.02.2020";
+        String DateTo="29.02.2020";
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date dateFrom=format.parse(DateFrom);
+        Date dateTo=format.parse(DateTo);
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10,journalMSE.countRowTable());
+        journalMSE.typeFIO("Темников");
+        journalMSE.typeDateFrom(DateFrom);
+        journalMSE.typeDateTo(DateTo);
+        journalMSE.clickSearch();
+        Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
+            String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
+            Assert.assertEquals("ФИО не совпадает!","Темников Дмитрий Олегович", FIOLabel);
+            String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();
+            Date dateY=format.parse(DateLabel);
+            Assert.assertTrue("Дата в гриде не входит в диапазон поиска!",(dateY.after(dateFrom) && dateY.before(dateTo)) || dateY.equals(dateFrom) || dateY.equals(dateTo));
+        }
+        journalMSE.clickClear();
+    }
+
+    @Test //Кейс 4.2 Поиск направления по Статусу и Членам комиссии
+    public void journalSearch_4_2(){
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10,journalMSE.countRowTable());
+        journalMSE.typeStatus("Зарегистрирован");
+        journalMSE.typeDocCommission("Иванов");
+        journalMSE.clickSearch();
+        Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
+            String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
+            String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
+            Assert.assertEquals("Статус не совпадает!","Зарегистрирован", statusLabel);
+            for (int j=1;j <= driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size(); j++) {
+               String DocCommissionLabelT= driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li[" + j + "]")).getText();
+               mas[j-1] = DocCommissionLabelT;
+            }
+            Assert.assertThat("Член Комиссии не входит в полученный список!", mas, hasItemInArray("Иванов П.С."));
+        }
+        journalMSE.clickClear();
+    }
+
+    @Test //Кейс 4.3 Поиск направления по Заключению и Автору
+    public void journalSearch_4_3(){
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10,journalMSE.countRowTable());
+        journalMSE.typeConclusion("Установлена");
+        journalMSE.typeAuthor("Иванов");
+        journalMSE.clickSearch();
+        Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
+            //String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
+            String ConclusionLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[11]")).getText();
+            Assert.assertEquals("Заключение не совпадает!","Установлена", ConclusionLabel);
+        }
+        journalMSE.clickClear();
+    }
+
+    @Test // Кейс 4.5 Удаление направления
+    public void journalDeleteMSE_4_5(){
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10,journalMSE.countRowTable());
+        journalMSE.typeFIO("Авто Тест");
+        journalMSE.typeDateFrom("28.05.2020");
+        journalMSE.typeDateTo("28.05.2020");
+        journalMSE.clickSearch();
+        Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
+        String messageDelete = journalMSE.clickMenuDelete(0);
+        Assert.assertEquals("Не было сообщение об успешном удалении направления","Направление на МСЭ удалено успешно.",messageDelete);
+    }
+
+/*
 
     @Test
     public void createResultDirection()  {
@@ -163,7 +175,7 @@ public class DirectionMSETest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @After
     public void tearDown(){

@@ -89,7 +89,6 @@ public class JournalMSE {
             driver.findElement(deleteAction).click();
             (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarDelete));
             return driver.findElement(snackBarDelete).getText();
-
         }
         return "Кнопка Удалить не активна!";
 

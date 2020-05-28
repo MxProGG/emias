@@ -62,8 +62,8 @@ public class DirectionPageMSE {
     }
 
     public void editDirection() {
-        //driver.findElement(buttonClearVK).click();
-        driver.findElement(inputProtokolVK).clear();
+        driver.findElement(buttonClearVK).click();
+        //driver.findElement(inputProtokolVK).clear();
         driver.findElement(inputProtokolVK).click();
         driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
         driver.findElement(inputTargetMSE).click();

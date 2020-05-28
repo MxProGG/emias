@@ -11,6 +11,8 @@ public class MainPage {
 
     private WebDriver driver;
 
+
+
     public MainPage(WebDriver driver){this.driver = driver;}
 
     //private By linkMSE = By.xpath("//span[text()=\"Журнал направлений на МСЭ\"]");
@@ -21,6 +23,9 @@ public class MainPage {
     private By tabAction = By.xpath("//a[text()='Действия']");
     private By redirectMSE = By.xpath("//span[text()='Направление на МСЭ']");
     private By logOut = By.xpath("//span[text()='Выход']");
+    private By inputTAP_DateFrom = By.xpath("//input[@id='Show_TAP_DateFrom']");
+    private By inputTAP_DateTo= By.xpath("//input[@id='Show_TAP_DateTo']");
+
 
     public void logOut (){driver.findElement(logOut).click();}
 
@@ -38,7 +43,11 @@ public class MainPage {
 
     public void searchTap() {
         driver.findElement(buttonResetFilter).click();
-        driver.findElement(inputRow).sendKeys("д г а");
+        driver.findElement(inputRow).sendKeys("Авто Тест МСЭ");
+        driver.findElement(inputTAP_DateFrom).clear();
+        driver.findElement(inputTAP_DateFrom).sendKeys("29.05.2020");
+        driver.findElement(inputTAP_DateTo).clear();
+        driver.findElement(inputTAP_DateTo).sendKeys("29.05.2020");
         driver.findElement(buttonSearch).click();
         driver.findElement(By.xpath("//td[@title=" + 1 + "]")).click();
         driver.findElement(menuEditTAP).click();
