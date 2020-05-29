@@ -5,11 +5,11 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import page.*;
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static java.lang.Thread.sleep;
+import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.hasItemInArray;
 
 
@@ -38,26 +38,6 @@ public class DirectionMSETest {
         String journalTitle = journalMSE.journalTitle();
         Assert.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
     }
-
-   /* @Test //Поиск направления по всем полям
-    public void journalSearch(){
-        //logger.info("11ffff");
-        linkMSE();
-        JournalMSE journalMSE = new JournalMSE(driver);
-        Assert.assertEquals(10,journalMSE.countRowTable());
-        journalMSE.typeFIO("Темников");
-        journalMSE.typeDateFrom("14.02.2020");
-        journalMSE.typeDateTo("29.02.2020");
-        journalMSE.typeStatus("Зарегистрирован");
-        journalMSE.typeConclusion("Установлена");
-        journalMSE.typeDocCommission("Мастякова");
-        journalMSE.typeAuthor("Иванов");
-        journalMSE.clickSearch();
-        //Assert.assertEquals(1,journalMSE.countRowTable());
-        journalMSE.clickClear();
-        journalMSE.clickSearch();
-        Assert.assertEquals(10,journalMSE.countRowTable());
-    }*/
 
     @Test // Кейс 1.1 Создание направления на МСЭ
     public void createMSE_1_1()  {
@@ -133,25 +113,33 @@ public class DirectionMSETest {
         journalMSE.clickSearch();
         Assert.assertNotEquals("Грида пустая!",0,journalMSE.countRowTable());
         for (int i=0; i < journalMSE.countRowTable(); i++) {
-            //String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
             String ConclusionLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[11]")).getText();
             Assert.assertEquals("Заключение не совпадает!","Установлена", ConclusionLabel);
         }
         journalMSE.clickClear();
     }
 
-    @Test // Кейс 4.4 Сохранения в Ехcel
-    public void journalDownloadExcel_4_4() throws InterruptedException {
-        File dir = new File("D:\\Work\\Download_selenium");
-        for (File item : dir.listFiles()) {
-                    item.delete(); }
+    @Test // Кейс 4.4.1 Сохранения в Ехcel без фильтра
+    public void journalDownloadExcel_4_4_1() throws InterruptedException {
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
-        Assert.assertEquals(10,journalMSE.countRowTable());
+        Assert.assertEquals(10, journalMSE.countRowTable());
         journalMSE.clickSaveExcel();
         sleep(5000);
-        String[] listFile = dir.list();
-        Assert.assertNotNull("Файл не скачан, папка пуста!",listFile);
+        Assert.assertThat("Файл не скачан, папка пуста!", journalMSE.deleteFile("D:\\Work\\Download_selenium"), arrayWithSize(1));
+    }
+
+    @Test // Кейс 4.4.2 Сохранения в Ехcel c фильтром
+    public void journalDownloadExcel_4_4_2() throws InterruptedException {
+        linkMSE();
+        JournalMSE journalMSE = new JournalMSE(driver);
+        Assert.assertEquals(10, journalMSE.countRowTable());
+        journalMSE.typeFIO("Темников");
+        journalMSE.typeStatus("Зарегистрирован");
+        journalMSE.clickSearch();
+        journalMSE.clickSaveExcel();
+        sleep(5000);
+        Assert.assertThat("Файл не скачан, папка пуста!",journalMSE.deleteFile("D:\\Work\\Download_selenium"),arrayWithSize(1));
     }
 
     @Test // Кейс 4.5 Удаление направления
@@ -170,7 +158,6 @@ public class DirectionMSETest {
     }
 
 /*
-
     @Test
     public void createResultDirection()  {
         linkMSE();

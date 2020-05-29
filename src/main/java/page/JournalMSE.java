@@ -1,9 +1,8 @@
 package page;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.io.File;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public class JournalMSE {
@@ -99,4 +98,11 @@ public class JournalMSE {
         driver.findElement(viewResultDirection).click();
     }
 
+    public String[] deleteFile(String direct){
+        File dir = new File(direct);
+        String[] listFile = dir.list();
+        for (File item : dir.listFiles()) {
+            item.delete(); }
+        return listFile;
+    }
 }

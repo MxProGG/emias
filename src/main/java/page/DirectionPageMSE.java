@@ -48,6 +48,7 @@ public class DirectionPageMSE {
         }
         //WebElement elementPatient = driver.findElement(By.xpath("//div[@mattooltipclass='tooltip-MKAB']"));
         //(new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@mattooltipclass='tooltip-MKAB']//span[contains(.,'Темников')]")));
+        sleep(5000);
         editDirection();
         driver.findElement(buttonSave).click();
         (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarSave));
@@ -62,6 +63,7 @@ public class DirectionPageMSE {
     }
 
     public void editDirection() {
+
         driver.findElement(buttonClearVK).click();
         //driver.findElement(inputProtokolVK).clear();
         driver.findElement(inputProtokolVK).click();
