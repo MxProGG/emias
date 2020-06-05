@@ -81,7 +81,7 @@ public class DirectionMSETest {
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
-            Assertions.assertEquals("ФИО не совпадает!","Темников Дмитрий Олегович ", FIOLabel);
+            Assertions.assertEquals("Темников Дмитрий Олегович", FIOLabel,"ФИО не совпадает!");
             String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();
             Date dateGrid=formatDate.parse(DateLabel);
             Assertions.assertTrue((dateGrid.after(formatDate.parse(dateFrom)) && dateGrid.before(formatDate.parse(dateTo))) || dateGrid.equals(formatDate.parse(dateFrom)) || dateGrid.equals(formatDate.parse(dateTo)),"Дата в гриде не входит в диапазон поиска!");
@@ -101,7 +101,7 @@ public class DirectionMSETest {
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String [] mas = new String[driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size()];
             String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
-            Assertions.assertEquals("Статус не совпадает!","Зарегистрирован", statusLabel);
+            Assertions.assertEquals("Зарегистрирован", statusLabel, "Статус не совпадает!");
             for (int j=1;j <= driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li")).size(); j++) {
                String DocCommissionLabelT= driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[8]//li[" + j + "]")).getText();
                mas[j-1] = DocCommissionLabelT;
@@ -122,7 +122,7 @@ public class DirectionMSETest {
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String ConclusionLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[11]")).getText();
-            Assertions.assertEquals("Заключение не совпадает!","Установлена", ConclusionLabel);
+            Assertions.assertEquals("Установлена", ConclusionLabel,"Заключение не совпадает!");
         }
         journalMSE.clickClear();
     }
@@ -162,7 +162,7 @@ public class DirectionMSETest {
         journalMSE.clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         String messageDelete = journalMSE.clickMenuDelete(0);
-        Assertions.assertEquals("Не было сообщение об успешном удалении направления","Направление на МСЭ удалено успешно.",messageDelete);
+        Assertions.assertEquals("Направление на МСЭ удалено успешно.",messageDelete,"Не было сообщение об успешном удалении направления");
     }
 
 /*
