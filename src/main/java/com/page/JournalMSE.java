@@ -1,8 +1,5 @@
-<<<<<<< HEAD:src/main/java/com/page/JournalMSE.java
+
 package com.page;
-=======
-package page;
->>>>>>> c2aa8a6... Реализаия 4.4 - работа с файлами:src/main/java/page/JournalMSE.java
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;

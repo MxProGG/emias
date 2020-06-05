@@ -1,31 +1,23 @@
 package com;
-
 import com.page.DirectionPageMSE;
 import com.page.JournalMSE;
 import com.page.LoginPage;
 import com.page.MainPage;
-
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-<<<<<<< HEAD:src/test/java/com/DirectionMSETest.java
-
-=======
-import page.*;
->>>>>>> c2aa8a6... Реализаия 4.4 - работа с файлами:src/test/java/DirectionMSETest.java
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static java.lang.Thread.sleep;
-<<<<<<< HEAD:src/test/java/com/DirectionMSETest.java
+
 import static org.hamcrest.MatcherAssert.assertThat;
-=======
->>>>>>> c2aa8a6... Реализаия 4.4 - работа с файлами:src/test/java/DirectionMSETest.java
+
+
 import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.hasItemInArray;
 
@@ -137,7 +129,6 @@ public class DirectionMSETest {
 
     @Test // Кейс 4.4.1 Сохранения в Ехcel без фильтра
     public void journalDownloadExcel_4_4_1() throws InterruptedException {
-<<<<<<< HEAD:src/test/java/com/DirectionMSETest.java
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assertions.assertEquals(10, journalMSE.countRowTable());
@@ -151,31 +142,12 @@ public class DirectionMSETest {
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assertions.assertEquals(10, journalMSE.countRowTable());
-=======
-        linkMSE();
-        JournalMSE journalMSE = new JournalMSE(driver);
-        Assert.assertEquals(10, journalMSE.countRowTable());
-        journalMSE.clickSaveExcel();
-        sleep(5000);
-        Assert.assertThat("Файл не скачан, папка пуста!", journalMSE.deleteFile("D:\\Work\\Download_selenium"), arrayWithSize(1));
-    }
-
-    @Test // Кейс 4.4.2 Сохранения в Ехcel c фильтром
-    public void journalDownloadExcel_4_4_2() throws InterruptedException {
-        linkMSE();
-        JournalMSE journalMSE = new JournalMSE(driver);
-        Assert.assertEquals(10, journalMSE.countRowTable());
->>>>>>> c2aa8a6... Реализаия 4.4 - работа с файлами:src/test/java/DirectionMSETest.java
         journalMSE.typeFIO("Темников");
         journalMSE.typeStatus("Зарегистрирован");
         journalMSE.clickSearch();
         journalMSE.clickSaveExcel();
         sleep(5000);
-<<<<<<< HEAD:src/test/java/com/DirectionMSETest.java
         assertThat("Файл не скачан, папка пуста!",journalMSE.deleteFile("D:\\Work\\Download_selenium"),arrayWithSize(1));
-=======
-        Assert.assertThat("Файл не скачан, папка пуста!",journalMSE.deleteFile("D:\\Work\\Download_selenium"),arrayWithSize(1));
->>>>>>> c2aa8a6... Реализаия 4.4 - работа с файлами:src/test/java/DirectionMSETest.java
     }
 
     @Test // Кейс 4.5 Удаление направления
