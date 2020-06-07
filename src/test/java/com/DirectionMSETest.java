@@ -3,10 +3,7 @@ import com.page.DirectionPageMSE;
 import com.page.JournalMSE;
 import com.page.LoginPage;
 import com.page.MainPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import java.text.ParseException;
@@ -22,7 +19,7 @@ import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.hasItemInArray;
 
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DirectionMSETest {
     private WebDriver driver;
     private LoginPage loginPage;
@@ -48,7 +45,8 @@ public class DirectionMSETest {
         Assertions.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
     }
 
-    @Test // Кейс 1.1 Создание направления на МСЭ
+    @Test
+    @Order(1)// Кейс 1.1 Создание направления на МСЭ
     public void createMSE_1_1()  {
         MainPage mainPage = loginPage.entrySystem("admin","11");
         try {
@@ -151,14 +149,15 @@ public class DirectionMSETest {
     }
 
     @Test // Кейс 4.5 Удаление направления
+    @Order(2)
     public void journalDeleteMSE_4_5(){
         linkMSE();
         JournalMSE journalMSE = new JournalMSE(driver);
         Assertions.assertEquals(10,journalMSE.countRowTable());
         journalMSE.typeFIO("Авто Тест");
-        Date dateNow = new Date();
+       /* Date dateNow = new Date();
         journalMSE.typeDateFrom(formatDate.format(dateNow));
-        journalMSE.typeDateTo(formatDate.format(dateNow));
+        journalMSE.typeDateTo(formatDate.format(dateNow));*/
         journalMSE.clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         String messageDelete = journalMSE.clickMenuDelete(0);

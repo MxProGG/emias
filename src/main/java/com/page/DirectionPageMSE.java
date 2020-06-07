@@ -62,12 +62,14 @@ public class DirectionPageMSE {
         Integer countRowTable = driver.findElements(By.xpath("//tr[@id=*]")).size();*/
     }
 
-    public void editDirection() {
+    public void editDirection() throws InterruptedException {
 
         driver.findElement(buttonClearVK).click();
         //driver.findElement(inputProtokolVK).clear();
         driver.findElement(inputProtokolVK).click();
+        sleep(5000);
         driver.findElement(inputProtokolVKSelect).click();
+
         //driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
         driver.findElement(inputTargetMSE).click();
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//legend[text()='11. Адрес места жительства*']")));
