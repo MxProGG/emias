@@ -1,5 +1,5 @@
-
 package com.page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,7 +9,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllE
 public class JournalMSE {
 
     private WebDriver driver;
-
     public JournalMSE(WebDriver driver){
         this.driver = driver;
     }
@@ -33,9 +32,9 @@ public class JournalMSE {
 
     public String journalTitle(){ return driver.findElement(journalTitle).getText(); }
 
-    public void typeFIO (String fio){
+    public JournalMSE typeFIO (String fio){
         driver.findElement(inputFIO).sendKeys(fio);
-        //return this;
+        return this;
     }
 
     public void typeDateFrom (String dateFrom){
@@ -46,9 +45,10 @@ public class JournalMSE {
         driver.findElement(inputDateBy).sendKeys(dateTo);
     }
 
-    public void typeStatus (String status){
+    public JournalMSE typeStatus (String status){
         driver.findElement(inputStatus).click();
         driver.findElement(By.xpath("//mat-option[@title='" + status + "']")).click();
+        return this;
     }
 
     public JournalMSE typeConclusion (String conclusion){
@@ -57,9 +57,10 @@ public class JournalMSE {
         return this;
     }
 
-    public void typeDocCommission (String docCommission){
+    public JournalMSE typeDocCommission (String docCommission){
         driver.findElement(inputDocCommission).click();
         driver.findElement(By.xpath("//mat-option[contains(@title,'" + docCommission + "')]")).click();
+        return this;
     }
 
     public JournalMSE typeAuthor (String author){
@@ -71,9 +72,10 @@ public class JournalMSE {
     public int countRowTable(){return driver.findElements(By.xpath("//datatable-body-row[@ng-reflect-row-index]")).size(); }
 
 
-    public void clickSaveExcel () {
+    public JournalMSE clickSaveExcel () {
         driver.findElement(buttonSaveExcel).click();
         new JournalMSE(driver);
+        return this;
     }
 
     public JournalMSE clickSearch () {
@@ -82,9 +84,10 @@ public class JournalMSE {
         return this;
     }
 
-    public void clickClear(){
+    public JournalMSE clickClear(){
         driver.findElement(buttonClear).click();
         new JournalMSE(driver);
+        return this;
     }
 
     public String clickMenuDelete(int indexRow){

@@ -1,5 +1,6 @@
-package com;
+package com.whcMvcUI;
 
+import com.WebDriverInstall;
 import com.page.LoginPage;
 import com.page.MainPage;
 import org.junit.jupiter.api.AfterEach;
@@ -16,8 +17,6 @@ public class MisPageTest {
     private WebDriver driver;
     private LoginPage loginPage;
     private MainPage mainPage;
-
-
 
     @BeforeEach
     public void setUp() {
@@ -62,7 +61,6 @@ public class MisPageTest {
 
     @AfterEach
     public void tearDown(){
-
         driver.quit();
     }
 
