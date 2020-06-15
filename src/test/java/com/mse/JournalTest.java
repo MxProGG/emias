@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.hasItemInArray;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class JournalTest {
     private WebDriver driver;
     private LoginPage loginPage;
@@ -46,6 +46,7 @@ public class JournalTest {
     }
 
     @Test
+    @Order(1)
     @DisplayName("Поиск направления по ФИО")
     public void searchFIO() {
         journalMSE.typeFIO("Темников")
@@ -61,7 +62,8 @@ public class JournalTest {
     }
 
     @Test
-    @DisplayName("Поиск направления по периодам выдачи")
+    @Order(2)
+    @DisplayName("Поиск направления по Периодам выдачи")
     public void searchPeriod() throws ParseException {
         journalMSE.typeFIO("Темников")
                 .typeDateFrom(dateFrom)
@@ -77,6 +79,7 @@ public class JournalTest {
     }
 
     @Test
+    @Order(3)
     @DisplayName("Поиск направления по Статусу")
     public void searchStatus(){
         journalMSE.typeStatus("Зарегистрирован")
@@ -91,6 +94,41 @@ public class JournalTest {
     }
 
     @Test
+    @Order(8)
+    @DisplayName("Печать направления из журнала")
+    public void printDirectionJournal() throws InterruptedException {
+        journalMSE.typeStatus("Зарегистрирован")
+                .clickSearch().clickMenuPrintDirection(0);
+        sleep(2000);
+        int i=0;
+        for (String handle : driver.getWindowHandles()) {
+            driver.switchTo().window(handle);
+            i++;
+        }
+        Assertions.assertEquals(4, i,"Кол-во вкладок не совпало!");
+        //String printLabel = driver.findElement(By.xpath("//p[text()='Форма N 088/у']")).;
+        //Assertions.assertEquals("Форма N 088/у",printLabel);
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("Печать обратного талона из журнала")
+    public void printResultDirectionJournal() throws InterruptedException {
+        journalMSE.typeStatus("Зарегистрирован")
+                .clickSearch().clickMenuPrintResultDirection(0);
+        sleep(2000);
+        int i=0;
+        for (String handle : driver.getWindowHandles()) {
+            driver.switchTo().window(handle);
+            i++;
+        }
+        Assertions.assertEquals(4, i,"Кол-во вкладок не совпало!");
+        //String printLabel = driver.findElement(By.xpath("//p[text()='Форма N 088/у']")).;
+        //Assertions.assertEquals("Форма N 088/у",printLabel);
+    }
+
+    @Test
+    @Order(4)
     @DisplayName("Поиск направления по Членам комиссии")
     public void searchDocCommission(){
         journalMSE.typeStatus("Зарегистрирован")
@@ -109,6 +147,7 @@ public class JournalTest {
     }
 
     @Test
+    @Order(5)
     @DisplayName("Поиск направления по Заключению")
     public void searchConclusion(){
         journalMSE.typeConclusion("Установлена")
@@ -137,6 +176,7 @@ public class JournalTest {
     }*/
 
     @Test
+    @Order(6)
     @DisplayName("Сохранения в Ехcel без фильтра")
     public void downloadExcelNotFilter() throws InterruptedException {
         journalMSE.clickSaveExcel();
@@ -145,6 +185,7 @@ public class JournalTest {
     }
 
     @Test
+    @Order(7)
     @DisplayName("Сохранения в Ехcel c фильтром")
     public void downloadExcelWithFilter() throws InterruptedException {
         journalMSE.typeFIO("Темников")

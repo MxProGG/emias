@@ -25,6 +25,8 @@ public class JournalMSE {
     private By inputDocCommission = By.xpath("//st-autocomplete[@formcontrolname='docCommission']");
     private By inputAuthor = By.xpath("//st-autocomplete[@formcontrolname='author']");
     private By deleteAction = By.xpath("//button[text()=' Удалить ']");
+    private By printDirection = By.xpath("//button[text()=' Направление на МСЭ(088/у) ']");
+    private By printResultDirection = By.xpath("//button[text()=' Сведения о результатах проведенной МСЭ ']");
     private By snackBarDelete = By.xpath("//span[text()='Направление на МСЭ удалено успешно.']");
     private By viewResultDirection = By.xpath("//button[text()=' Просмотр сведений о результатах проведенной МСЭ ']");
 
@@ -100,6 +102,18 @@ public class JournalMSE {
             return driver.findElement(snackBarDelete).getText();
         }
         return "Кнопка Удалить не активна!";
+    }
+
+    public JournalMSE clickMenuPrintDirection(int indexRow){
+        driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//div[2]//i")).click();
+        driver.findElement(printDirection).click();
+        return this;
+    }
+
+    public JournalMSE clickMenuPrintResultDirection(int indexRow){
+        driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//div[2]//i")).click();
+        driver.findElement(printResultDirection).click();
+        return this;
     }
 
     public void clickMenuResultDirection(int indexRow){

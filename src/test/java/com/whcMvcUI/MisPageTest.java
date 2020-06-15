@@ -3,10 +3,7 @@ package com.whcMvcUI;
 import com.WebDriverInstall;
 import com.page.LoginPage;
 import com.page.MainPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 
 import static java.lang.Thread.sleep;
@@ -27,6 +24,7 @@ public class MisPageTest {
     }
 
     @Test
+    @DisplayName("Успешный переход на страницу помощи в Confluence")
     public  void helpClick (){
         Assertions.assertEquals("TrustMed",loginPage.getHeadingText());
         loginPage.clickLinkHelp();
@@ -37,6 +35,7 @@ public class MisPageTest {
      }
 
     @Test
+    @DisplayName("Неудачный вход в Веб МИС")
     public void loginErrorTest(){
         loginPage.entrySystem("admin","22");
         String error = loginPage.getErorrText();
@@ -44,12 +43,14 @@ public class MisPageTest {
     }
 
     @Test
+    @DisplayName("Успешный вход в Веб МИС")
     public void loginSuccesful(){
         loginPage.entrySystem("admin","11");
         Assertions.assertEquals("Центр управления", driver.getTitle()) ;
     }
 
     @Test
+    @DisplayName("Успешный выход из Веб МИС")
     public void loginOut () throws InterruptedException {
         loginPage.entrySystem("admin","11");
         mainPage = new MainPage(driver);
