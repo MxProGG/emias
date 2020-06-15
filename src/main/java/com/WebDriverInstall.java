@@ -32,7 +32,7 @@ public class WebDriverInstall {
            options.addArguments("window-size=1650x1050");
            options.setExperimentalOption("prefs",dirDownload);
            //Определяем режимы запуска в заисимости от значения mode, КаСтЫлЬ!!!
-           int mode = 1; // для запуска без окна браузера передать >0
+           int mode = 0; // для запуска без окна браузера передать >0
            if (mode == 0){
            driver = new ChromeDriver(dir);}
                 else{driver = new ChromeDriver(options);}
