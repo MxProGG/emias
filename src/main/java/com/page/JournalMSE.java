@@ -37,12 +37,14 @@ public class JournalMSE {
         return this;
     }
 
-    public void typeDateFrom (String dateFrom){
+    public JournalMSE typeDateFrom (String dateFrom){
         driver.findElement(inputDateFrom).sendKeys(dateFrom);
+        return this;
     }
 
-    public void typeDateTo (String dateTo){
+    public JournalMSE typeDateTo (String dateTo){
         driver.findElement(inputDateBy).sendKeys(dateTo);
+        return this;
     }
 
     public JournalMSE typeStatus (String status){

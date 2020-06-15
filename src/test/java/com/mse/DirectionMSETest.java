@@ -60,7 +60,7 @@ public class DirectionMSETest {
 
     @Test // Кейс 4.5 Удаление направления
     @Order(2)
-    @DisplayName("Удаление направления МСЭ")
+    @DisplayName("Удаление направления на МСЭ")
     public void journalDeleteMSE() throws InterruptedException {
         linkMSE();
         sleep(2000);

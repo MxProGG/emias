@@ -48,10 +48,10 @@ public class JournalTest {
     @Test
     @DisplayName("Поиск направления по ФИО")
     public void searchFIO() {
-        journalMSE.typeFIO("Темников");
-        journalMSE.typeDateFrom(dateFrom);
-        journalMSE.typeDateTo(dateTo);
-        journalMSE.clickSearch();
+        journalMSE.typeFIO("Темников")
+                .typeDateFrom(dateFrom)
+                .typeDateTo(dateTo)
+                .clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String FIOLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[3]")).getText();
@@ -63,10 +63,10 @@ public class JournalTest {
     @Test
     @DisplayName("Поиск направления по периодам выдачи")
     public void searchPeriod() throws ParseException {
-        journalMSE.typeFIO("Темников");
-        journalMSE.typeDateFrom(dateFrom);
-        journalMSE.typeDateTo(dateTo);
-        journalMSE.clickSearch();
+        journalMSE.typeFIO("Темников")
+                .typeDateFrom(dateFrom)
+                .typeDateTo(dateTo)
+                .clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String DateLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[2]")).getText();

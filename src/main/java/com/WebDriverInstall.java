@@ -23,7 +23,7 @@ public class WebDriverInstall {
            System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
            //Прописыаем настройку куда скачивать файлы
            ChromeOptions dir = new ChromeOptions();
-           Map<String, Object> dirDownload = new HashMap<String, Object>();
+           Map<String, Object> dirDownload = new HashMap<>();
            dirDownload.put("download.default_directory", "D:\\Work\\Download_selenium");
            dir.setExperimentalOption("prefs",dirDownload);
            //Прописываем настройки чтобы запускать браузер в режиме без окна.
@@ -32,8 +32,8 @@ public class WebDriverInstall {
            options.addArguments("window-size=1650x1050");
            options.setExperimentalOption("prefs",dirDownload);
            //Определяем режимы запуска в заисимости от значения mode, КаСтЫлЬ!!!
-           int mode = 1; // для запуска без окна браузера передать >0
-           if (mode == 1){
+           int mode = 0; // для запуска без окна браузера передать >0
+           if (mode == 0){
            driver = new ChromeDriver(dir);}
                 else{driver = new ChromeDriver(options);}
            //Неявное ожидание для все элементов 10 сек
