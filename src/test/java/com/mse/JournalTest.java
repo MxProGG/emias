@@ -106,6 +106,7 @@ public class JournalTest {
             i++;
         }
         Assertions.assertEquals(4, i,"Кол-во вкладок не совпало!");
+        
         //String printLabel = driver.findElement(By.xpath("//p[text()='Форма N 088/у']")).;
         //Assertions.assertEquals("Форма N 088/у",printLabel);
     }

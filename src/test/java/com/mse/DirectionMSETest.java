@@ -55,7 +55,6 @@ public class DirectionMSETest {
         }  catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test // Кейс 4.5 Удаление направления

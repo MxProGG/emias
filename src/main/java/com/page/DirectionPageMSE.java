@@ -2,9 +2,11 @@ package com.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static java.lang.Thread.sleep;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public class DirectionPageMSE {
@@ -36,7 +38,7 @@ public class DirectionPageMSE {
     private By input35 = By.xpath("//div[contains(text(),' 35. Рекомендуемые мероприятия по реконструктивной хирургии')]/following::div[1]//textarea");
     private By input36 = By.xpath("//div[contains(text(),' 36. Рекомендуемые мероприятия по протезированию и ортезированию')]/following::div[1]//textarea");
     private By input37 = By.xpath("//div[contains(text(),' 37. Санаторно-курортное лечение')]/following::div[1]//textarea");
-
+    private By buttonSign = By.xpath("//button[contains(.,'Подписать')]");
 
 
     public String newDirection() throws InterruptedException {
@@ -47,7 +49,8 @@ public class DirectionPageMSE {
         }
         //WebElement elementPatient = driver.findElement(By.xpath("//div[@mattooltipclass='tooltip-MKAB']"));
         //(new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@mattooltipclass='tooltip-MKAB']//span[contains(.,'Темников')]")));
-        sleep(5000);
+        //sleep(5000);
+        (new WebDriverWait(driver, 20)).withMessage("Страница не заргрузилась спусть 20 сек!").until(elementToBeClickable(buttonSave));
         editDirection();
         driver.findElement(buttonSave).click();
         (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarSave));
@@ -66,7 +69,7 @@ public class DirectionPageMSE {
         driver.findElement(buttonClearVK).click();
         //driver.findElement(inputProtokolVK).clear();
         driver.findElement(inputProtokolVK).click();
-        sleep(5000);
+        //sleep(5000);
         driver.findElement(inputProtokolVKSelect).click();
 
         //driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
