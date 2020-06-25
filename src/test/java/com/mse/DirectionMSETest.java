@@ -5,8 +5,14 @@ import com.page.DirectionPageMSE;
 import com.page.JournalMSE;
 import com.page.LoginPage;
 import com.page.MainPage;
+import com.sql.DataSQL;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 
@@ -58,21 +64,47 @@ public class DirectionMSETest {
     }
 
     @Test // Кейс 4.5 Удаление направления
-    @Order(2)
+    @Order(3)
     @DisplayName("Удаление направления на МСЭ")
     public void journalDeleteMSE() throws InterruptedException {
         linkMSE();
         sleep(2000);
-        journalMSE.typeFIO("Авто");
+        journalMSE.typeFIO("Авто").clickSearch();
        /* Date dateNow = new Date();
         journalMSE.typeDateFrom(formatDate.format(dateNow));
         journalMSE.typeDateTo(formatDate.format(dateNow));*/
-        journalMSE.clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         String messageDelete = journalMSE.clickMenuDelete(0);
         Assertions.assertEquals("Направление на МСЭ удалено успешно.",messageDelete,"Не было сообщение об успешном удалении направления");
     }
 
+    @Test // Кейс 4.6 Создать направление на основании
+    @Order(2)
+    @DisplayName("Создать направление на основании")
+    public void createBasedOnMSE() throws InterruptedException {
+        linkMSE();
+        DataSQL.setStatusMSE(DataSQL.getExamId(1),6);
+        journalMSE.typeFIO("Авто").clickSearch();
+        Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
+        journalMSE.clickMenuBasedOn(0);
+        DirectionPageMSE directionPageMSE = new DirectionPageMSE(driver);
+        String messageSave = directionPageMSE.newDirection();
+        Assertions.assertEquals("Направление сохранено",messageSave);
+        directionPageMSE.clickButtonClose();
+        sleep(2000);
+        ((JavascriptExecutor)driver).executeScript("scroll(0,-400)");
+        journalMSE.typeFIO("Авто").clickSearch();
+        Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
+        ArrayList<String> mas = new ArrayList<String>();
+        mas.add("Сформирован");
+        mas.add("Аннулирован");
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
+            String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
+            Assertions.assertEquals(mas.get(i), statusLabel, "Статус не совпадает!");
+        }
+        DataSQL.deleteDirectionMSE(DataSQL.getExamId(1));
+        DataSQL.setStatusMSE(DataSQL.getExamId(7),1);
+    }
 /*
     @Test
     public void createResultDirection()  {

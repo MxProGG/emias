@@ -39,6 +39,7 @@ public class DirectionPageMSE {
     private By input36 = By.xpath("//div[contains(text(),' 36. Рекомендуемые мероприятия по протезированию и ортезированию')]/following::div[1]//textarea");
     private By input37 = By.xpath("//div[contains(text(),' 37. Санаторно-курортное лечение')]/following::div[1]//textarea");
     private By buttonSign = By.xpath("//button[contains(.,'Подписать')]");
+    private By buttonClose = By.xpath("//button[contains(.,'Закрыть')]");
 
 
     public String newDirection() throws InterruptedException {
@@ -54,9 +55,7 @@ public class DirectionPageMSE {
         editDirection();
         driver.findElement(buttonSave).click();
         (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarSave));
-
         return driver.findElement(snackBarSave).getText();
-
         /*List<WebElement> idTap = driver.findElements(By.xpath("//tr[@id=*]"));
         for (int i = 1; i<idTap.size(); i++){
            driver.findElement(By.xpath("//td[@title=" + i + "]")).click();
@@ -64,14 +63,13 @@ public class DirectionPageMSE {
         Integer countRowTable = driver.findElements(By.xpath("//tr[@id=*]")).size();*/
     }
 
-    public void editDirection() throws InterruptedException {
+    public void editDirection() {
 
         driver.findElement(buttonClearVK).click();
         //driver.findElement(inputProtokolVK).clear();
         driver.findElement(inputProtokolVK).click();
         //sleep(5000);
         driver.findElement(inputProtokolVKSelect).click();
-
         //driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
         driver.findElement(inputTargetMSE).click();
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//legend[text()='11. Адрес места жительства*']")));
@@ -93,6 +91,10 @@ public class DirectionPageMSE {
         //(new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarSave));
         //return driver.findElement(snackBarSave).getText();
 
+    }
+
+    public void clickButtonClose(){
+        driver.findElement(buttonClose).click();
     }
 
 }

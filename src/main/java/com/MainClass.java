@@ -1,5 +1,8 @@
 package com;
 
+import com.sql.DataSQL;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainClass {
@@ -9,9 +12,7 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите режим: ");
-        int mode = scanner.nextInt();
+        //System.out.println(DataSQL.getExamId(1));
 
     }
 }

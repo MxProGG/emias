@@ -17,7 +17,7 @@ public class JournalMSE {
     private By buttonSearch = By.xpath("//div//a[text()=\" Найти \"]");
     private By buttonSaveExcel = By.xpath("//div//button[text()=\" Сохранить Excel \"]");
     private By buttonClear = By.xpath("//div//a[text()=\" очистить \"]");
-    private By inputFIO = By.xpath("//input[@id='mat-input-0']");
+    private By inputFIO = By.xpath("//input[@formcontrolname=\"fio\"]");
     private By inputDateFrom = By.xpath("//input[@id='mat-input-5']");
     private By inputDateBy = By.xpath("//input[@id='mat-input-6']");
     private By inputStatus = By.xpath("//st-autocomplete[@formcontrolname='status']");
@@ -25,6 +25,7 @@ public class JournalMSE {
     private By inputDocCommission = By.xpath("//st-autocomplete[@formcontrolname='docCommission']");
     private By inputAuthor = By.xpath("//st-autocomplete[@formcontrolname='author']");
     private By deleteAction = By.xpath("//button[text()=' Удалить ']");
+    private By BasedOnAction = By.xpath("//button[text()=' Создать на основании ']");
     private By printDirection = By.xpath("//button[text()=' Направление на МСЭ(088/у) ']");
     private By printResultDirection = By.xpath("//button[text()=' Сведения о результатах проведенной МСЭ ']");
     private By snackBarDelete = By.xpath("//span[text()='Направление на МСЭ удалено успешно.']");
@@ -102,6 +103,11 @@ public class JournalMSE {
             return driver.findElement(snackBarDelete).getText();
         }
         return "Кнопка Удалить не активна!";
+    }
+
+    public void clickMenuBasedOn(int indexRow){
+        driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//i")).click();
+        driver.findElement(BasedOnAction).click();
     }
 
     public JournalMSE clickMenuPrintDirection(int indexRow){
