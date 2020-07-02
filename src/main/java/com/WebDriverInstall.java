@@ -1,5 +1,6 @@
 package com;
 
+import com.config.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -32,10 +33,16 @@ public class WebDriverInstall {
            options.addArguments("window-size=1650x1050");
            options.setExperimentalOption("prefs",dirDownload);
            //Определяем режимы запуска в заисимости от значения mode, КаСтЫлЬ!!!
-           String mode_browser = "headless1";// для запуска без окна браузера передать не "headless"
-           if (mode_browser != "headless"){
-           driver = new ChromeDriver(dir);}
-                else{driver = new ChromeDriver(options);}
+          TestConfig.initConfig();
+           if(TestConfig.isHeadless()) {
+                  driver = new ChromeDriver(options);
+           } else {
+                  driver = new ChromeDriver(dir);
+           }
+           /*String mode_browser = "headless";// для запуска без окна браузера передать не "headless"
+           if (mode_browser == "headless"){
+                  driver = new ChromeDriver(options);}
+                else{driver = new ChromeDriver(dir);}*/
            //Неявное ожидание для все элементов 10 сек
            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
            //Чтоб окно браузера запускалось на втором мониторе
