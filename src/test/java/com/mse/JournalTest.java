@@ -95,6 +95,21 @@ public class JournalTest {
     }
 
     @Test
+    @Order(10)
+    @DisplayName("Переход из направления в Журнал РЭМД")
+    public void searchErrorStatus(){
+        journalMSE.typeStatus("Ошибка регистрации")
+                .clickSearch();
+        Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
+        for (int i=0; i < journalMSE.countRowTable(); i++) {
+            String statusLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[9]")).getText();
+            Assertions.assertEquals("Ошибка регистрации", statusLabel, "Статус не совпадает!");
+        }
+        journalMSE.clickMenuJournalREMD(0);
+        Assertions.assertEquals("Журнал обмена с РЭМД",driver.findElement(By.xpath("//div[@class='title-container']")).getText());
+    }
+
+    @Test
     @Order(8)
     @DisplayName("Печать направления из журнала")
     public void printDirectionJournal() throws InterruptedException {

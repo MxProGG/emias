@@ -29,6 +29,7 @@ public class JournalMSE {
     private By BasedOnAction = By.xpath("//button[text()=' Создать на основании ']");
     private By printDirection = By.xpath("//button[text()=' Направление на МСЭ(088/у) ']");
     private By printResultDirection = By.xpath("//button[text()=' Сведения о результатах проведенной МСЭ ']");
+    private By journalREMD = By.xpath("//button[text()='Просмотр журнала обмена с РЭМД']");
     private By snackBarDelete = By.xpath("//span[text()='Направление на МСЭ удалено успешно.']");
     private By viewResultDirection = By.xpath("//button[text()=' Просмотр сведений о результатах проведенной МСЭ ']");
 
@@ -121,6 +122,12 @@ public class JournalMSE {
     public JournalMSE clickMenuPrintResultDirection(int indexRow){
         driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//div[2]//i")).click();
         driver.findElement(printResultDirection).click();
+        return this;
+    }
+
+    public JournalMSE clickMenuJournalREMD(int indexRow){
+        driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index=" + indexRow + "]//div[@class='datatable-body-cell-label']//div[3]//i")).click();
+        driver.findElement(journalREMD).click();
         return this;
     }
 
