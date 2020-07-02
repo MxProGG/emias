@@ -9,14 +9,14 @@ public class DataSQL {
     private static String userName = "sa";
     private static String password = "HkyeZfiCkO8";
 
-    public static int getExamId(int status) {
+    public static int getExamId(int idstatus) {
         String url = connectionUrl +
                 ";databaseName=" + databaseName +
                 ";user=" + userName +
                 ";password=" + password;
         //ResultSet rs = null;
             try (Connection connection = DriverManager.getConnection(url)) {
-                String sql = "select mse_ExaminationID from dmg_mse_Examination where rf_MKABID='2662331' and rf_mse_StatusMseID='" + status + "'";
+                String sql = "select mse_ExaminationID from dmg_mse_Examination where rf_MKABID='2662331' and rf_mse_StatusMseID='" + idstatus + "'";
                 try (Statement statement = connection.createStatement()) {
                    ResultSet rs= statement.executeQuery(sql);
                     rs.next();

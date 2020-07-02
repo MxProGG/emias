@@ -26,6 +26,7 @@ public class JournalTest {
 
     @BeforeEach //Инициализация веб драйвера и настройки браузера
     public void setUp(){
+
         WebDriverInstall driverInstall = new WebDriverInstall();
         driver = driverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
@@ -100,11 +101,15 @@ public class JournalTest {
         journalMSE.typeStatus("Зарегистрирован")
                 .clickSearch().clickMenuPrintDirection(0);
         sleep(2000);
+        //driver.getPageSource();
+        //driver.findElement(By.xpath("//body//div[@class='headStyle']")).getText();
         int i=0;
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
             i++;
         }
+
+        //Assertions.assertEquals("Документ без имени",driver.findElement(By.xpath("//body//div[@class='headStyle']")).getText());
         Assertions.assertEquals(4, i,"Кол-во вкладок не совпало!");
         
         //String printLabel = driver.findElement(By.xpath("//p[text()='Форма N 088/у']")).;
@@ -162,13 +167,15 @@ public class JournalTest {
         journalMSE.clickClear();
     }
 
-    /*@Test
+   /* @Test
+    @Order(8)
     @DisplayName("Поиск направления по Автору")
     public void searchAuthor(){
         journalMSE.typeConclusion("Установлена")
                 .typeAuthor("Иванов")
                 .clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
+        driver.getPageSource();
         for (int i=0; i < journalMSE.countRowTable(); i++) {
             String ConclusionLabel = driver.findElement(By.xpath("//datatable-body-row[@ng-reflect-row-index='" + i + "']//datatable-body-cell[11]")).getText();
             Assertions.assertEquals("Установлена", ConclusionLabel,"Заключение не совпадает!");
@@ -199,6 +206,12 @@ public class JournalTest {
 
     @AfterEach //Закрываем ссесию веб драйвера
     public void tearDown(){
+       /* File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String path = "./target/screenshots/" + screenshot.getName();
+        try {
+            FileUtils.copyFile(screenshot, new File(path));
+        } catch (IOException e){e.printStackTrace();}*/
+
         driver.quit();
     }
 }

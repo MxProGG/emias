@@ -1,6 +1,7 @@
 package com.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
@@ -36,6 +37,7 @@ public class JournalMSE {
     public String journalTitle(){ return driver.findElement(journalTitle).getText(); }
 
     public JournalMSE typeFIO (String fio){
+        ((JavascriptExecutor)driver).executeScript("scroll(0,-400)");
         driver.findElement(inputFIO).sendKeys(fio);
         return this;
     }

@@ -51,7 +51,7 @@ public class DirectionPageMSE {
         //WebElement elementPatient = driver.findElement(By.xpath("//div[@mattooltipclass='tooltip-MKAB']"));
         //(new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@mattooltipclass='tooltip-MKAB']//span[contains(.,'Темников')]")));
         //sleep(5000);
-        (new WebDriverWait(driver, 20)).withMessage("Страница не заргрузилась спусть 20 сек!").until(elementToBeClickable(buttonSave));
+        (new WebDriverWait(driver, 40)).withMessage("Страница не заргрузилась спусть 40 сек!").until(elementToBeClickable(buttonSave));
         editDirection();
         driver.findElement(buttonSave).click();
         (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarSave));

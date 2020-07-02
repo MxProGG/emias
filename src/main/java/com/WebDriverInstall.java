@@ -32,8 +32,8 @@ public class WebDriverInstall {
            options.addArguments("window-size=1650x1050");
            options.setExperimentalOption("prefs",dirDownload);
            //Определяем режимы запуска в заисимости от значения mode, КаСтЫлЬ!!!
-           int mode = 0; // для запуска без окна браузера передать >0
-           if (mode == 0){
+           String mode_browser = "headless1";// для запуска без окна браузера передать не "headless"
+           if (mode_browser != "headless"){
            driver = new ChromeDriver(dir);}
                 else{driver = new ChromeDriver(options);}
            //Неявное ожидание для все элементов 10 сек

@@ -92,10 +92,9 @@ public class DirectionMSETest {
         Assertions.assertEquals("Направление сохранено",messageSave);
         directionPageMSE.clickButtonClose();
         sleep(2000);
-        ((JavascriptExecutor)driver).executeScript("scroll(0,-400)");
         journalMSE.typeFIO("Авто").clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
-        ArrayList<String> mas = new ArrayList<String>();
+        ArrayList<String> mas = new ArrayList<>();
         mas.add("Сформирован");
         mas.add("Аннулирован");
         for (int i=0; i < journalMSE.countRowTable(); i++) {
