@@ -26,21 +26,15 @@ public class JournalTest {
 
     @BeforeEach //Инициализация веб драйвера и настройки браузера
     public void setUp(){
-
         WebDriverInstall driverInstall = new WebDriverInstall();
         driver = driverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
-
     }
 
     @BeforeEach //Переход из Веб Мис в Журнал направлений на МСЭ
-    public void linkMSE(){
+    public void linkMSE() {
         MainPage mainPage = loginPage.entrySystem("admin","11");
-        try {
-            mainPage.linkPage("#MseIndexNg");
-        }  catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        mainPage.linkPage("#MseIndexNg");
         journalMSE = new JournalMSE(driver);
         String journalTitle = journalMSE.journalTitle();
         Assertions.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);

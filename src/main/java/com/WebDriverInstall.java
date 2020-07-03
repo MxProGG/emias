@@ -3,21 +3,14 @@ package com;
 import com.config.TestConfig;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverInstall {
@@ -59,9 +52,9 @@ public class WebDriverInstall {
            //com.page.LoginPage loginPage = new com.page.LoginPage(driver);
     }
 
-    /*public static WebDriver currentDriver() {
+    public static WebDriver currentDriver() {
         return driver;
-    }*/
+    }
 
     public static void executeJs(String script) {
         JavascriptExecutor js = (JavascriptExecutor)setUpDriver();
@@ -73,7 +66,7 @@ public class WebDriverInstall {
     }
 
     public static void takeScreenshot() {
-        File scrFile = ((TakesScreenshot) setUpDriver()).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String path = System.getProperty("user.dir")
                 + File.separator + "target"
                 + File.separator + "screenshots"

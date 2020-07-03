@@ -1,5 +1,6 @@
 package com.page;
 
+import com.WebDriverInstall;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,10 +30,10 @@ public class MainPage {
 
     public void logOut (){driver.findElement(logOut).click();}
 
-    public void linkPage(String linktext) throws InterruptedException {
+    public void linkPage(String linktext) {
         String linkXpath = "//a[@href='"+ linktext + "']";
         By linkFormat = By.xpath(linkXpath);
-        Thread.sleep(5000);
+        WebDriverInstall.wait(5);
         driver.findElement(linkFormat).click();
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);

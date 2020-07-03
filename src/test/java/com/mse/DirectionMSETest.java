@@ -28,11 +28,7 @@ public class DirectionMSETest {
     //@BeforeEach //Переход из Веб Мис в Журнал направлений на МСЭ
     public void linkMSE(){
         MainPage mainPage = loginPage.entrySystem("admin","11");
-        try {
-            mainPage.linkPage("#MseIndexNg");
-        }  catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        mainPage.linkPage("#MseIndexNg");
         journalMSE = new JournalMSE(driver);
         String journalTitle = journalMSE.journalTitle();
         Assertions.assertEquals("Журнал направлений на медико-социальную экспертизу (МСЭ)",journalTitle);
@@ -43,19 +39,11 @@ public class DirectionMSETest {
     @DisplayName("Создание направления на МСЭ")
     public void createMSE()  {
         MainPage mainPage = loginPage.entrySystem("admin","11");
-        try {
-            mainPage.linkPage("/mis/test2/Tap");
-        }  catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        mainPage.linkPage("/mis/test2/Tap");
         mainPage.searchTap();
         DirectionPageMSE directionPageMSE = new DirectionPageMSE(driver);
-        try {
-            String messageSave = directionPageMSE.newDirection();
-            Assertions.assertEquals("Направление сохранено",messageSave);
-        }  catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String messageSave = directionPageMSE.newDirection();
+        Assertions.assertEquals("Направление сохранено",messageSave);
     }
 
     @Test // Кейс 4.5 Удаление направления

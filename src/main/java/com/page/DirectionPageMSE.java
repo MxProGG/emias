@@ -43,25 +43,16 @@ public class DirectionPageMSE {
     private By buttonClose = By.xpath("//button[contains(.,'Закрыть')]");
 
 
-    public String newDirection() throws InterruptedException {
-
-        sleep(5000);
+    public String newDirection(){
+        WebDriverInstall.wait(5);
         for (String handle1 : driver.getWindowHandles()) {
             driver.switchTo().window(handle1);
         }
-        //WebElement elementPatient = driver.findElement(By.xpath("//div[@mattooltipclass='tooltip-MKAB']"));
-        //(new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@mattooltipclass='tooltip-MKAB']//span[contains(.,'Темников')]")));
-        //sleep(5000);
         (new WebDriverWait(driver, 40)).withMessage("Страница не заргрузилась спусть 40 сек!").until(elementToBeClickable(buttonSave));
         editDirection();
         driver.findElement(buttonSave).click();
         (new WebDriverWait(driver, 20)).until(visibilityOfAllElementsLocatedBy(snackBarSave));
         return driver.findElement(snackBarSave).getText();
-        /*List<WebElement> idTap = driver.findElements(By.xpath("//tr[@id=*]"));
-        for (int i = 1; i<idTap.size(); i++){
-           driver.findElement(By.xpath("//td[@title=" + i + "]")).click();
-        }
-        Integer countRowTable = driver.findElements(By.xpath("//tr[@id=*]")).size();*/
     }
 
     public void editDirection() {
