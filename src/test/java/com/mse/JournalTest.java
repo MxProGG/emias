@@ -10,10 +10,10 @@ import org.openqa.selenium.WebDriver;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static java.lang.Thread.sleep;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.hasItemInArray;
+
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class JournalTest {
@@ -30,6 +30,7 @@ public class JournalTest {
         WebDriverInstall driverInstall = new WebDriverInstall();
         driver = driverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
+
     }
 
     @BeforeEach //Переход из Веб Мис в Журнал направлений на МСЭ
@@ -77,6 +78,7 @@ public class JournalTest {
             Assertions.assertTrue((dateGrid.after(formatDate.parse(dateFrom)) && dateGrid.before(formatDate.parse(dateTo))) || dateGrid.equals(formatDate.parse(dateFrom)) || dateGrid.equals(formatDate.parse(dateTo)),"Дата в гриде не входит в диапазон поиска!");
         }
         journalMSE.clickClear();
+
     }
 
     @Test
@@ -112,10 +114,10 @@ public class JournalTest {
     @Test
     @Order(8)
     @DisplayName("Печать направления из журнала")
-    public void printDirectionJournal() throws InterruptedException {
+    public void printDirectionJournal() {
         journalMSE.typeStatus("Зарегистрирован")
                 .clickSearch().clickMenuPrintDirection(0);
-        sleep(2000);
+        WebDriverInstall.wait(2);
         //driver.getPageSource();
         //driver.findElement(By.xpath("//body//div[@class='headStyle']")).getText();
         int i=0;
@@ -134,10 +136,10 @@ public class JournalTest {
     @Test
     @Order(9)
     @DisplayName("Печать обратного талона из журнала")
-    public void printResultDirectionJournal() throws InterruptedException {
+    public void printResultDirectionJournal() {
         journalMSE.typeStatus("Зарегистрирован")
                 .clickSearch().clickMenuPrintResultDirection(0);
-        sleep(2000);
+        WebDriverInstall.wait(2);
         int i=0;
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
@@ -201,32 +203,28 @@ public class JournalTest {
     @Test
     @Order(6)
     @DisplayName("Сохранения в Ехcel без фильтра")
-    public void downloadExcelNotFilter() throws InterruptedException {
+    public void downloadExcelNotFilter() {
         journalMSE.clickSaveExcel();
-        sleep(5000);
+        WebDriverInstall.wait(5);
+        //sleep(5000);
         assertThat("Файл не скачан, папка пуста!", journalMSE.deleteFile("D:\\Work\\Download_selenium"), arrayWithSize(1));
     }
 
     @Test
     @Order(7)
     @DisplayName("Сохранения в Ехcel c фильтром")
-    public void downloadExcelWithFilter() throws InterruptedException {
+    public void downloadExcelWithFilter() {
         journalMSE.typeFIO("Темников")
                 .typeStatus("Зарегистрирован")
                 .clickSearch()
                 .clickSaveExcel();
-        sleep(5000);
+        WebDriverInstall.wait(5);
         assertThat("Файл не скачан, папка пуста!",journalMSE.deleteFile("D:\\Work\\Download_selenium"),arrayWithSize(1));
     }
 
     @AfterEach //Закрываем ссесию веб драйвера
     public void tearDown(){
-       /* File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String path = "./target/screenshots/" + screenshot.getName();
-        try {
-            FileUtils.copyFile(screenshot, new File(path));
-        } catch (IOException e){e.printStackTrace();}*/
-
+        WebDriverInstall.takeScreenshot();
         driver.quit();
     }
 }

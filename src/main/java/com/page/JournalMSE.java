@@ -34,7 +34,6 @@ public class JournalMSE {
     private By viewResultDirection = By.xpath("//button[text()=' Просмотр сведений о результатах проведенной МСЭ ']");
 
 
-
     public String journalTitle(){ return driver.findElement(journalTitle).getText(); }
 
     public JournalMSE typeFIO (String fio){

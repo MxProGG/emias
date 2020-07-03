@@ -1,5 +1,6 @@
 package com.page;
 
+import com.WebDriverInstall;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -72,6 +73,7 @@ public class DirectionPageMSE {
         driver.findElement(inputProtokolVKSelect).click();
         //driver.findElement(By.xpath("//mat-option[contains(.,'" + 545 + "')]")).click();
         driver.findElement(inputTargetMSE).click();
+       // WebDriverInstall.executeJs("arguments[0].scrollIntoView();driver.findElement(By.xpath(\"//legend[text()='11. Адрес места жительства*']\"))");
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//legend[text()='11. Адрес места жительства*']")));
         driver.findElement(inputWhere13).click();
         driver.findElement(inputWhere13Select).click();

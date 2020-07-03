@@ -11,6 +11,6 @@ public class TestConfig {
     }
 
     public static boolean isHeadless() {
-        return headless.contains("0");
+        return headless.contains("1");
     }
 }

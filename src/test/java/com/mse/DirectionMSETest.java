@@ -8,13 +8,8 @@ import com.page.MainPage;
 import com.sql.DataSQL;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static java.lang.Thread.sleep;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -66,9 +61,9 @@ public class DirectionMSETest {
     @Test // Кейс 4.5 Удаление направления
     @Order(3)
     @DisplayName("Удаление направления на МСЭ")
-    public void journalDeleteMSE() throws InterruptedException {
+    public void journalDeleteMSE() {
         linkMSE();
-        sleep(2000);
+        WebDriverInstall.wait(2);
         journalMSE.typeFIO("Авто").clickSearch();
        /* Date dateNow = new Date();
         journalMSE.typeDateFrom(formatDate.format(dateNow));
@@ -91,7 +86,7 @@ public class DirectionMSETest {
         String messageSave = directionPageMSE.newDirection();
         Assertions.assertEquals("Направление сохранено",messageSave);
         directionPageMSE.clickButtonClose();
-        sleep(2000);
+        WebDriverInstall.wait(2);
         journalMSE.typeFIO("Авто").clickSearch();
         Assertions.assertNotEquals(0,journalMSE.countRowTable(),"Грида пустая!");
         ArrayList<String> mas = new ArrayList<>();
@@ -131,11 +126,7 @@ public class DirectionMSETest {
 
     @AfterEach //Закрываем ссесию веб драйвера
     public void tearDown(){
-        /*File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String path = "./target/screenshots/" + screenshot.getName();
-        try {
-            FileUtils.copyFile(screenshot, new File(path));
-        } catch (IOException e){e.printStackTrace();}*/
+        WebDriverInstall.takeScreenshot();
         driver.quit();
     }
 

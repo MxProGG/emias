@@ -1,9 +1,8 @@
 package com;
 
 import com.config.TestConfig;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,15 +10,20 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverInstall {
-    public WebDriver driver;
+    public static WebDriver driver;
 
-    public WebDriver setUpDriver() {
+    public static WebDriver setUpDriver() {
            //Путь к веб драйверу
            System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
            //Прописыаем настройку куда скачивать файлы
@@ -53,6 +57,47 @@ public class WebDriverInstall {
            driver.get("http://192.168.7.54/mis/test2/");
            return driver;
            //com.page.LoginPage loginPage = new com.page.LoginPage(driver);
+    }
+
+    /*public static WebDriver currentDriver() {
+        return driver;
+    }*/
+
+    public static void executeJs(String script) {
+        JavascriptExecutor js = (JavascriptExecutor)setUpDriver();
+        try {
+            js.executeScript(script);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void takeScreenshot() {
+        File scrFile = ((TakesScreenshot) setUpDriver()).getScreenshotAs(OutputType.FILE);
+        String path = System.getProperty("user.dir")
+                + File.separator + "target"
+                + File.separator + "screenshots"
+                + File.separator + " " + "screenshot_" +  (new SimpleDateFormat("HHmmssSSS").format(new Date())) + ".png";
+        try {
+            FileUtils.copyFile(scrFile, new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String path = "./target/screenshots/" + screenshot.getName();
+        try {
+            FileUtils.copyFile(screenshot, new File(path));
+        } catch (IOException e){e.printStackTrace();}*/
+    }
+
+    public static void wait(int seconds)
+    {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
