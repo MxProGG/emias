@@ -12,8 +12,6 @@ public class MainPage {
 
     private WebDriver driver;
 
-
-
     public MainPage(WebDriver driver){this.driver = driver;}
 
     //private By linkMSE = By.xpath("//span[text()=\"Журнал направлений на МСЭ\"]");
@@ -41,7 +39,6 @@ public class MainPage {
         //return new MainPage(driver);
     }
 
-
     public void searchTap() {
         driver.findElement(buttonResetFilter).click();
         driver.findElement(inputRow).sendKeys("Авто Тест МСЭ");
@@ -57,7 +54,6 @@ public class MainPage {
         elementAction.click();
         driver.findElement(redirectMSE).click();
     }
-
 
 }
 

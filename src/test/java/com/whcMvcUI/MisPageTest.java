@@ -5,7 +5,6 @@ import com.page.LoginPage;
 import com.page.MainPage;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-
 import static java.lang.Thread.sleep;
 
 
@@ -17,8 +16,8 @@ public class MisPageTest {
 
     @BeforeEach
     public void setUp() {
-        WebDriverInstall driverInstall = new WebDriverInstall();
-        driver = driverInstall.setUpDriver();
+       // WebDriverInstall driverInstall = new WebDriverInstall();
+        driver = WebDriverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
         //com.page.LoginPage loginPage = PageFactory.initElements(driver, com.page.LoginPage.class);
     }
@@ -57,11 +56,11 @@ public class MisPageTest {
         sleep(2000);
         mainPage.logOut();
         Assertions.assertEquals("TrustMed", loginPage.getHeadingText());
-
     }
 
     @AfterEach
     public void tearDown(){
+        WebDriverInstall.takeScreenshot();
         driver.quit();
     }
 

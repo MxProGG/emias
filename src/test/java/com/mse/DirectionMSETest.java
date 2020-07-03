@@ -20,8 +20,8 @@ public class DirectionMSETest {
 
     @BeforeEach //Инициализация веб драйвера и настройки браузера
     public void setUp(){
-        WebDriverInstall driverInstall = new WebDriverInstall();
-        driver = driverInstall.setUpDriver();
+        //WebDriverInstall driverInstall = new WebDriverInstall();
+        driver = WebDriverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
     }
 
@@ -64,7 +64,7 @@ public class DirectionMSETest {
     @Test // Кейс 4.6 Создать направление на основании
     @Order(2)
     @DisplayName("Создать направление на основании")
-    public void createBasedOnMSE() throws InterruptedException {
+    public void createBasedOnMSE() {
         linkMSE();
         DataSQL.setStatusMSE(DataSQL.getExamId(1),6);
         journalMSE.typeFIO("Авто").clickSearch();

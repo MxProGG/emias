@@ -26,8 +26,8 @@ public class JournalTest {
 
     @BeforeEach //Инициализация веб драйвера и настройки браузера
     public void setUp(){
-        WebDriverInstall driverInstall = new WebDriverInstall();
-        driver = driverInstall.setUpDriver();
+        //WebDriverInstall driverInstall = new WebDriverInstall();
+        driver = WebDriverInstall.setUpDriver();
         loginPage = new LoginPage(driver);
     }
 
@@ -72,7 +72,6 @@ public class JournalTest {
             Assertions.assertTrue((dateGrid.after(formatDate.parse(dateFrom)) && dateGrid.before(formatDate.parse(dateTo))) || dateGrid.equals(formatDate.parse(dateFrom)) || dateGrid.equals(formatDate.parse(dateTo)),"Дата в гриде не входит в диапазон поиска!");
         }
         journalMSE.clickClear();
-
     }
 
     @Test
@@ -119,10 +118,8 @@ public class JournalTest {
             driver.switchTo().window(handle);
             i++;
         }
-
-        //Assertions.assertEquals("Документ без имени",driver.findElement(By.xpath("//body//div[@class='headStyle']")).getText());
-        Assertions.assertEquals(4, i,"Кол-во вкладок не совпало!");
-        
+        Assertions.assertEquals("Документ без имени",driver.findElement(By.xpath("//body//div[@class='headStyle']")).getText());
+        //Assertions.assertEquals(4, i,"Кол-во вкладок не совпало!");
         //String printLabel = driver.findElement(By.xpath("//p[text()='Форма N 088/у']")).;
         //Assertions.assertEquals("Форма N 088/у",printLabel);
     }

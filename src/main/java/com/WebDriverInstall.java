@@ -52,12 +52,12 @@ public class WebDriverInstall {
            //com.page.LoginPage loginPage = new com.page.LoginPage(driver);
     }
 
-    public static WebDriver currentDriver() {
+  /*  public static WebDriver currentDriver() {
         return driver;
-    }
+    }*/
 
     public static void executeJs(String script) {
-        JavascriptExecutor js = (JavascriptExecutor)setUpDriver();
+        JavascriptExecutor js = (JavascriptExecutor)driver;
         try {
             js.executeScript(script);
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class WebDriverInstall {
         String path = System.getProperty("user.dir")
                 + File.separator + "target"
                 + File.separator + "screenshots"
-                + File.separator + " " + "screenshot_" +  (new SimpleDateFormat("HHmmssSSS").format(new Date())) + ".png";
+                + File.separator + " " + "screenshot_" +  (new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date())) + ".png";
         try {
             FileUtils.copyFile(scrFile, new File(path));
         } catch (IOException e) {
